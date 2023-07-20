@@ -1,3 +1,4 @@
+import serveStatic from 'serve-static'
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -37,6 +38,9 @@ export default {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: '/',
   },
+  serverMiddleware: [
+    { path: '/api',  handler: '~/server/index.js'},
+  ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
