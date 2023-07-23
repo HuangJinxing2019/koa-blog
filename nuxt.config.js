@@ -17,14 +17,16 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '@/assets/css/resets.css',
-    '@/assets/css/theme_color.css',
     'view-design/dist/styles/iview.css',
+    '@/assets/css/resets.css',
+    '@/assets/css/view_resets.css',
+    '@/assets/css/theme_color.css',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '@/plugins/view-ui'
+    '@/plugins/view-ui',
+    { src: '~/plugins/axios-interceptor', mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -43,8 +45,13 @@ export default {
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: '/',
+    credentials: true,
   },
 
+  // 路由中间件
+  router: {
+    middleware: [ 'auth' ]
+  },
 
   serverMiddleware: [
     { path: '/api',  handler: '~/server/index.js'},

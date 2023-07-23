@@ -1,0 +1,5 @@
+let baseUrl = ''
+export const authLogin = baseUrl + '/api/auth/login'
+export const authRegister = baseUrl + '/api/auth/register'
+export const checkToken = baseUrl + '/api/auth/checkToken'
+export const blogsQueryList = baseUrl + '/api/blogs/queryList'

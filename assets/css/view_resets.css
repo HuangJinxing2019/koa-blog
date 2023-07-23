@@ -1,0 +1,75 @@
+/*input输入框*/
+.ivu-input {
+  background-color: transparent;
+  border-color: var(--border-color-def);
+  color: var(--text-color-def);
+}
+.ivu-input::placeholder{
+  color: var(--text-color-placeholder);
+}
+.ivu-form .ivu-form-item-label{
+  color: var(--text-color-def);
+}
+
+/*卡片*/
+.ivu-card {
+  background-color: var(--bg-color-card);
+  color: var(--text-color-def);
+}
+.ivu-card-bordered,
+.ivu-card-head{
+  border-color: var(--border-color-def);
+
+}
+.ivu-card-head p{
+  color: var(--text-color-def);
+}
+
+/*确认提示框*/
+.ivu-modal-content{
+  background-color: var(--bg-color);
+}
+.ivu-modal-confirm-head-title{
+  color: var(--text-color-def);
+}
+
+
+/*文本按钮*/
+.ivu-btn-text{
+  color: var(--text-color-def);
+}
+.ivu-btn-text:hover{
+  background-color: var(--bg-color);
+}
+
+/*表格样式*/
+.ivu-table,
+.ivu-table::before{
+  background-color: var(--bg-color);
+  border-color: var(--border-color-def);
+}
+.ivu-table-wrapper-with-border{
+  border-color: var(--border-color-def);
+}
+
+.ivu-table::before,
+.ivu-table-border:after{
+  background-color: var(--border-color-def);
+}
+
+.ivu-table th,
+.ivu-table td{
+  background-color: var(--bg-color-card);
+  border-color: var(--border-color-def);
+  color: var(--text-color-def);
+}
+.ivu-table td{
+  background-color: var(--bg-color);
+}
+tr.ivu-table-row-hover td,
+tr.ivu-table-row-hover td,
+.ivu-table-stripe .ivu-table-body tr.ivu-table-row-hover td,
+.ivu-table-stripe .ivu-table-body tr:nth-child(2n) td{
+  background-color: var(--bg-color-card);
+}
+

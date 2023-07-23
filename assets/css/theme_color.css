@@ -1,7 +1,10 @@
 :root {
-  --bg-color: #010409;
-  --color-def: #e6edf3;
-  --color-red: red;
+  --bg-color: #0d1117;
+  --bg-color-card: #161b22;
+  --bg-color-card-rgba: rgba(22, 27, 34, .5);
+  --border-color-def: #30363d;
+  --text-color-def: #e6edf3;
+  --text-color-placeholder: #7d8590;
 }
 body{
   background: var(--bg-color);
