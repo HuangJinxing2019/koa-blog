@@ -12,7 +12,6 @@
 <script>
 import { blogsQueryList } from '~/config/api'
 import { getServerDomain } from '~/utils'
-
 export default {
   name: 'IndexPage',
   data() {
@@ -60,21 +59,19 @@ export default {
       ],
     }
   },
-  async asyncData({ $axios, req }) {
-    try {
-      const { data } = await $axios.post(getServerDomain(req) + blogsQueryList)
-      console.log(data)
-    }catch (err){
-
-    }
+  asyncData({ $axios, req }) {
+    return new Promise((resolve, reject) => {
+      resolve({name: '战'})
+    })
   },
-  async created() {
-    try {
-      const { data } = await this.$axios.post(blogsQueryList, {})
-    } catch (err) {
-      console.log(err)
-    }
-  },
+  // async created() {
+  //   // try {
+  //   //   const { data } = await this.$axios.post(blogsQueryList, {})
+  //   //   // console.log('0-0-0-0-0')
+  //   // } catch (err) {
+  //   //   console.log(err)
+  //   // }
+  // },
   methods: {
     openChange() {
       this.$Modal.confirm({
