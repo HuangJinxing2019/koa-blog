@@ -61,17 +61,18 @@ export default {
   },
   asyncData({ $axios, req }) {
     return new Promise((resolve, reject) => {
-      resolve({name: '战'})
+      // resolve({name: '战'})
+      console.log('-=-=-=-=-=-=-=')
     })
   },
-  // async created() {
-  //   // try {
-  //   //   const { data } = await this.$axios.post(blogsQueryList, {})
-  //   //   // console.log('0-0-0-0-0')
-  //   // } catch (err) {
-  //   //   console.log(err)
-  //   // }
-  // },
+  async created() {
+    try {
+      const { data } = await this.$axios.post(blogsQueryList, {})
+      console.log('shshshh')
+    } catch (err) {
+      console.log(err)
+    }
+  },
   methods: {
     openChange() {
       this.$Modal.confirm({

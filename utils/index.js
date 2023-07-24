@@ -6,5 +6,12 @@ export function getServerDomain(req){
   }else {
     return ''
   }
-
+}
+export function getServerCookies(str){
+  const keyValue = str.split('; ')
+  return keyValue.reduce((pre, item) => {
+    const [ key, value] = item.split('=')
+    pre[key] = value
+    return pre
+  }, {})
 }

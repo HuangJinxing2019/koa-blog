@@ -1,5 +1,6 @@
 import {authLogin, authRegister} from "~/config/api";
 import request from "~/utils/request";
+import {getServerCookies} from "~/utils";
 
 export const state = () => ({
   token: '',
@@ -7,10 +8,8 @@ export const state = () => ({
 })
 
 export const mutations = {
-  initData(state, data){
-    const { token, userInfo } = data
+  setToken(state, token){
     state.token = token;
-    state.userInfo = userInfo;
   },
   setLoginInfo(state, data){
     const { token, userInfo } = data
@@ -19,6 +18,11 @@ export const mutations = {
   }
 }
 export const actions  = {
+  nuxtServerInit({ commit },{ req }){
+    const cookies = req.headers.cookie ? getServerCookies(req.headers.cookie) : '';
+    const token = cookies ? cookies.token : '';
+    commit('setToken', token)
+  },
   async login({ commit },params){
     try {
       const res = await request.jsonPost(authLogin, params);

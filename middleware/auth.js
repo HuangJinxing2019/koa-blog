@@ -1,34 +1,27 @@
 import { checkToken } from "~/config/api";
 import request from "~/utils/request";
+import { getServerCookies } from "~/utils";
 
-export default async function ({ $axios, redirect, req, store, route }, next){
+export default async function ({ redirect, req, store, route }){
 
+  if (route.path === '/login') return;
   let token = ''
-  if (process.server){
-    const cookies = req.headers.cookie !== 'undefined' && req.headers.cookie ? getServerCookies(req.headers.cookie) : '';
+  if(process.server){
+    const cookies = req.headers.cookie ? getServerCookies(req.headers.cookie) : '';
     token = cookies ? cookies.token : '';
-    store.commit('initData', token || '')
   } else {
     token = store.state.token
   }
-
   if(!token){
     redirect('/login')
   } else {
-    const { data } = await request.jsonPost(checkToken,{ token })
-    if(route.path !== '/login' && !data.data){
-      redirect('/login')
-    }
+    try {
+      const { data } = await request.jsonPost(checkToken,{ token })
+      if(route.path !== '/login' && !data.data){
+        redirect('/login')
+      }
+    }catch (err){}
   }
-  next()
-}
 
-function getServerCookies(str){
-  const keyValue = str.split('; ')
-  return keyValue.reduce((pre, item) => {
-    const [ key, value] = item.split('=')
-    pre[key] = value
-    return pre
-  }, {})
 }
 
