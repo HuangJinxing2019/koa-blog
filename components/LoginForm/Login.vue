@@ -41,6 +41,7 @@ export default {
         try {
           this.btnLoading = true
           await this.login(this.loginForm)
+          this.btnLoading = false
           await this.$router.replace('/')
         } catch (err) {
           this.btnLoading = false

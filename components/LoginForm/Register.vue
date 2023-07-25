@@ -49,6 +49,7 @@ export default {
           this.btnLoading = true
           await this.register(this.registerForm)
           await this.$router.replace('/')
+          this.btnLoading = false
         } catch (err){
            this.btnLoading = false
         }

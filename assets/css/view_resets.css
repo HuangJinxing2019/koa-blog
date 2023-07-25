@@ -39,13 +39,13 @@
   color: var(--text-color-def);
 }
 .ivu-btn-text:hover{
-  background-color: var(--bg-color);
+  background-color: var(--bg-color-content);
 }
 
 /*表格样式*/
 .ivu-table,
 .ivu-table::before{
-  background-color: var(--bg-color);
+  background-color: var(--bg-color-content);
   border-color: var(--border-color-def);
 }
 .ivu-table-wrapper-with-border{
@@ -64,7 +64,7 @@
   color: var(--text-color-def);
 }
 .ivu-table td{
-  background-color: var(--bg-color);
+  background-color: var(--bg-color-content);
 }
 tr.ivu-table-row-hover td,
 tr.ivu-table-row-hover td,
@@ -72,4 +72,44 @@ tr.ivu-table-row-hover td,
 .ivu-table-stripe .ivu-table-body tr:nth-child(2n) td{
   background-color: var(--bg-color-card);
 }
+
+/*提示消息message*/
+.ivu-message-notice-content{
+  color: var(--text-color-def);
+  border-width: 1px;
+  border-style: solid;
+}
+.ivu-message-notice-content-success{
+  background: var(--bg-color-success);
+  border:1px solid var(--border-color-success);
+}
+.ivu-message-notice-content-error{
+  background: var(--bg-color-error);
+  border:1px solid var(--border-color-error);
+}
+.ivu-message-notice-content-info{
+  background: var(--bg-color-info);
+  border:1px solid var(--border-color-info);
+}
+.ivu-message-notice-content-warning{
+  background: var(--bg-color-warning);
+  border:1px solid var(--border-color-warning);
+}
+
+/*菜单栏*/
+.ivu-menu-light,
+.ivu-menu-vertical.ivu-menu-light:after
+{
+  background: var(--bg-color-card);
+  color: var(--text-color-def);
+}
+.ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu){
+  background: var(--bg-color-active);
+  color: var(--text-color-fff);
+}
+.ivu-menu{
+  color: var(--text-color-def);
+}
+
+
 

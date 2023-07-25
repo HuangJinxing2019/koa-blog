@@ -1,8 +1,22 @@
 :root {
-  --bg-color: #0d1117;
+  --bg-color: #010409;
+  --bg-color-content: #0d1117;
   --bg-color-card: #161b22;
   --bg-color-card-rgba: rgba(22, 27, 34, .5);
+  --bg-color-success: #10241f;
+  --bg-color-error: #2c1414;
+  --bg-color-warning: #2F2115;
+  --bg-color-info: #141E2E;
+  --bg-color-active: #2d8cf0;
+
   --border-color-def: #30363d;
+  --border-color-def: #30363d;
+  --border-color-success: #154731;
+  --border-color-error: #511f16;
+  --border-color-warning: #604116;
+  --border-color-info: #1F4060;
+
+  --text-color-fff: #ffffff;
   --text-color-def: #e6edf3;
   --text-color-placeholder: #7d8590;
 }

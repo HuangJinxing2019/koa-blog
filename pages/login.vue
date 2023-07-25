@@ -7,9 +7,9 @@
 </template>
 <script>
 import LoginForm from "~/components/LoginForm/index.vue";
-
 export default {
   name: 'LoginPage',
+  layout: 'login',
   components: {LoginForm}
 }
 </script>

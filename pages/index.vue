@@ -59,16 +59,12 @@ export default {
       ],
     }
   },
-  asyncData({ $axios, req }) {
-    return new Promise((resolve, reject) => {
-      // resolve({name: '战'})
-      console.log('-=-=-=-=-=-=-=')
-    })
+  async asyncData() {
+
   },
   async created() {
     try {
       const { data } = await this.$axios.post(blogsQueryList, {})
-      console.log('shshshh')
     } catch (err) {
       console.log(err)
     }
