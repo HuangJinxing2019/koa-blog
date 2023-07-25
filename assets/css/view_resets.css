@@ -111,5 +111,15 @@ tr.ivu-table-row-hover td,
   color: var(--text-color-def);
 }
 
+/*气泡提示*/
+.ivu-poptip-inner{
+  background-color: var(--bg-color-card);
+}
+.ivu-poptip-arrow,
+.ivu-poptip-popper[x-placement^=bottom] .ivu-poptip-arrow,
+.ivu-poptip-popper[x-placement^=bottom] .ivu-poptip-arrow:after {
+  border-bottom-color: var(--bg-color-card);
+}
+
 
 

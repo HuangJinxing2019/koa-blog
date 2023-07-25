@@ -3,7 +3,6 @@ import request from "~/utils/request";
 import { getServerCookies } from "~/utils";
 
 export default async function ({ redirect, req, store, route }){
-
   if (route.path === '/login') return;
   let token = ''
   if(process.server){
@@ -16,12 +15,11 @@ export default async function ({ redirect, req, store, route }){
     redirect('/login')
   } else {
     try {
-      // const { data } = await request.jsonPost(checkToken,{ token })
+      const { data } = await request.jsonPost(checkToken,{ token })
       if(route.path !== '/login' && !data.data){
         redirect('/login')
       }
     }catch (err){}
   }
-
 }
 
