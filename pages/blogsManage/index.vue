@@ -1,5 +1,5 @@
 <template>
-  <div>博客页面</div>
+  <div class="wrapper">博客页面</div>
 </template>
 
 <script>
@@ -8,6 +8,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  .wrapper{
 
+  }
 </style>

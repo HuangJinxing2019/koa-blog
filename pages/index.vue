@@ -4,7 +4,7 @@
     <Card title="我是卡片">
       <Button type="primary" @click="openChange">232323</Button>
     </Card>
-    <div style="margin: auto; margin-top: 30px; width: 1200px">
+    <div style="margin: auto; margin-top: 30px;">
       <Table border :columns="columns1" :data="data1"></Table>
     </div>
   </div>

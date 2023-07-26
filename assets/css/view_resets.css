@@ -10,6 +10,9 @@
 .ivu-form .ivu-form-item-label{
   color: var(--text-color-def);
 }
+.ivu-input-word-count{
+  background-color: transparent;
+}
 
 /*卡片*/
 .ivu-card {
@@ -27,15 +30,26 @@
 
 /*确认提示框*/
 .ivu-modal-content{
-  background-color: var(--bg-color);
+  background-color: var(--bg-color-card);
 }
-.ivu-modal-confirm-head-title{
+.ivu-modal-confirm-head-title,
+.ivu-modal-header p, .ivu-modal-header-inner{
   color: var(--text-color-def);
+}
+.ivu-modal-header,
+.ivu-modal-footer{
+  border-color: var(--border-color-def);
 }
 
 
 /*文本按钮*/
-.ivu-btn-text{
+.ivu-btn-text,
+.ivu-btn-error,
+.ivu-btn-info,
+.ivu-btn-success,
+.ivu-btn-warning,
+.ivu-btn-primary
+{
   color: var(--text-color-def);
 }
 .ivu-btn-text:hover{
@@ -119,6 +133,12 @@ tr.ivu-table-row-hover td,
 .ivu-poptip-popper[x-placement^=bottom] .ivu-poptip-arrow,
 .ivu-poptip-popper[x-placement^=bottom] .ivu-poptip-arrow:after {
   border-bottom-color: var(--bg-color-card);
+}
+
+/*上传*/
+.ivu-upload-drag{
+  background-color: var(--bg-color-content);
+  border-color: var(--border-color-def);
 }
 
 

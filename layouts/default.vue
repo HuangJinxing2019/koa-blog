@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="default-wrapper">
     <div class="sidebar sidebar_def">
       <Sidebar />
     </div>
@@ -24,7 +24,7 @@
   }
 </script>
 <style lang="scss" scoped>
-  .wrapper{
+  .default-wrapper{
     position: relative;
     width: 100%;
     height: 100%;
@@ -57,7 +57,10 @@
         .info{
           width: 100%;
           min-height: 100%;
+          padding: 15px;
+          box-sizing: border-box;
           background: var(--bg-color-content);
+          border-radius: 4px;
         }
       }
     }
