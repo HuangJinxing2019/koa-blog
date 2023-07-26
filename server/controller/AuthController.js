@@ -36,6 +36,11 @@ class AuthController {
     }
   }
 
+  async logout(ctx){
+    ctx.cookies.set('token', null)
+    ctx.body = returnInfo(SUCCESS)
+  }
+
   // 注册
   async register(ctx){
     const { account, password, nickname } = ctx.request.body;
@@ -50,7 +55,7 @@ class AuthController {
     try {
       const userInfo = await sysUserService.createSysUser({account, password, nickname})
       const token = await genToken({ account })
-      ctx.cookies.set('token', token)
+      ctx.cookies.set('token', '')
       ctx.body = returnInfo(SUCCESS, { ...userInfo.dataValues, token })
 
     } catch (err) {

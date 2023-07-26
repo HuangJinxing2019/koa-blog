@@ -19,11 +19,13 @@
   </div>
 </template>
 <script>
+  import { mapActions } from "vuex";
+
   export default {
     name: 'Author',
     data(){
       return {
-
+        isLogout: false,
       }
     },
     computed: {
@@ -32,8 +34,18 @@
       }
     },
     methods:{
-      handleLogout(){
-        console.log('退出登录')
+      ...mapActions({logout: 'logout'}),
+      async handleLogout(){
+        if(this.isLogout) return
+        this.isLogout = true
+        try {
+          await this.logout()
+          this.isLogout = false
+          this.$Message.success('提出成功')
+          this.$router.replace('/login')
+        }catch (err){
+          this.isLogout = false
+        }
       }
     }
   }

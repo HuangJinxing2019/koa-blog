@@ -1,4 +1,4 @@
-import {authLogin, authRegister} from "~/config/api";
+import {authLogin, authLogout, authRegister} from "~/config/api";
 import request from "~/utils/request";
 import {getServerCookies} from "~/utils";
 
@@ -38,7 +38,6 @@ export const actions  = {
     } catch (err) {
       throw new Error('登录异常'+err)
     }
-
   },
   async register({ commit },params){
     try {
@@ -53,4 +52,17 @@ export const actions  = {
       throw new Error('注册异常'+err)
     }
   },
+  async logout({commit}){
+    try {
+      await request.jsonPost(authLogout)
+      localStorage.removeItem('token')
+      localStorage.removeItem('userInfo')
+      commit('setLoginInfo', {
+        token: '',
+        userInfo: null,
+      })
+    } catch {
+      throw new Error('退出异常'+err)
+    }
+  }
 }
