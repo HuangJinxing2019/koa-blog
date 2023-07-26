@@ -1,5 +1,6 @@
 const sysUserModel = require('../db/models/sys_user')
 const { Op } = require("sequelize");
+const { getRandomStr } = require("../libs/utils");
 
 
 class SysUserService{
@@ -21,7 +22,8 @@ class SysUserService{
       }
       return Promise.reject(errMsg)
     }
-    return sysUserModel.create(sysUser);
+    const openid = await this.genOpenid();
+    return sysUserModel.create({ openid, ...sysUser });
   }
 
   // 根据账号查询用户
@@ -29,6 +31,20 @@ class SysUserService{
     return sysUserModel.findOne({
       where: { account }
     })
+  }
+  // 生成openid并校验是数据库否已经存在
+  async genOpenid(){
+    const openid = getRandomStr(8);
+    const checkOpenid = await sysUserModel.findOne({
+      where: {
+        openid,
+      }
+    })
+    if(checkOpenid){
+      return this.genOpenid()
+    } else {
+      return openid
+    }
   }
 }
 module.exports = new SysUserService()

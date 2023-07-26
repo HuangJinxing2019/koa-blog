@@ -8,6 +8,11 @@ const SysUser = seq.define('sys_user', {
     primaryKey: true, // 主键
     autoIncrement: true, // 实现自增
   },
+  openid: {
+    comment: 'openid',
+    type: STRING(8),
+    unique: true,
+  },
   nickname: {
     comment: '昵称',
     type: STRING(8),
@@ -35,7 +40,7 @@ const SysUser = seq.define('sys_user', {
   sex: {
     comment: '性别',
     allowNull: true,
-    defaultValue: 1,
+    defaultValue: 0,
     type: INT(1),
   },
   birthday: {

@@ -55,7 +55,7 @@ class AuthController {
     try {
       const userInfo = await sysUserService.createSysUser({account, password, nickname})
       const token = await genToken({ account })
-      ctx.cookies.set('token', '')
+      ctx.cookies.set('token', token)
       ctx.body = returnInfo(SUCCESS, { ...userInfo.dataValues, token })
 
     } catch (err) {
