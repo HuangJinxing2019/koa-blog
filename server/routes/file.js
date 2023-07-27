@@ -1,10 +1,9 @@
+const path = require('path')
 const router = require('koa-router')({prefix: '/file'});
-const multer = require('koa-multer');
 const fileController = require('../controller/FileController');
 const { verifyCheckin } = require('../middleware');
 
-const upload = multer();
-
-router.post('/upload', verifyCheckin, upload.single('file'), fileController.upload)
+router.post('/upload', verifyCheckin, fileController.upload)
+router.get('/getFile/:filename', fileController.getFile)
 
 module.exports = router

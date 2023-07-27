@@ -10,8 +10,8 @@
       <FormItem prop="name" label="分类名称">
         <Input v-model="formData.name" :maxlength="12" show-word-limit placeholder="请输入1~12字符名称" />
       </FormItem>
-      <FormItem prop="name" label="分类图片">
-        <SingleUpload />
+      <FormItem prop="imgUrl" label="分类图片">
+        <SingleUpload :value.sync="formData.imgUrl"/>
       </FormItem>
     </Form>
   </Modal>

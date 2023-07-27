@@ -19,4 +19,12 @@ module.exports = {
     code: 40002,
     msg: '参数错误'
   },
+  UPLOAD_ERROR:{
+    code: 40003,
+    msg: '文件上传失败'
+  },
+  NOT_FOUND_ERROR:{
+    code: 404,
+    msg: '文件数据找不到'
+  },
 }
