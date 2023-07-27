@@ -1,4 +1,8 @@
+const path = require('path');
 const jwt = require('jsonwebtoken')
+const Qiniu = require('qiniu');
+
+const qiniuConfig = require('../config/qiniu_config');
 const { PRIVATE_KEY, EXPIRES_IN } = require('../config/encryption_config')
 
 function returnInfo(statusInfo, data = null){
@@ -13,7 +17,33 @@ async function genToken(data) {
 }
 
 async function verifyToken(token) {
-  return await jwt.verify(token, PRIVATE_KEY)
+  return jwt.verify(token, PRIVATE_KEY)
+}
+
+async function qiniuUpload(filepath, filename){
+  const mac = new Qiniu.auth.digest.Mac(qiniuConfig.ak, qiniuConfig.sk),
+      conf = new Qiniu.conf.Config(),
+      formUploader = new Qiniu.form_up.FormUploader(conf),
+      putExtra = new Qiniu.form_up.PutExtra();
+
+  const token = new Qiniu.rs.PutPolicy({ scope: qiniuConfig.bucket.blogs.bucketName }).uploadToken(mac);
+  // 获取上传文件的扩展名
+  const extname = path.extname(filename);
+  // 生成上传到七牛云的文件名，这里使用时间戳和随机字符串
+  const key = `${Date.now().toString(36)}-${Math.random().toString(36).substr(2)}${extname}`;
+  return new Promise((resolve, reject) => {
+    formUploader.putFile(token, key, filepath, putExtra, (err, ret, info) => {
+      if(err){
+        reject(err)
+      } else {
+        if(info.statusCode === 200){
+          resolve(ret)
+        }else {
+          reject(info)
+        }
+      }
+    })
+  })
 }
 
 function getRandomStr(len){
@@ -43,5 +73,6 @@ module.exports = {
   returnInfo,
   genToken,
   verifyToken,
-  getRandomStr
+  getRandomStr,
+  qiniuUpload
 }
