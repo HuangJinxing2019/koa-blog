@@ -6,7 +6,7 @@
     <Table border :columns="tableColumns" :data="list">
       <template #action="{row, index}">
         <Button type="primary" @click="handleEdit(row.id)" size="small">编辑</Button>
-        <Button type="error" @click="handleDelete(row.id)" size="small">编辑</Button>
+        <Button type="error" @click="handleDelete(row.id)" size="small">删除</Button>
       </template>
     </Table>
     <type-edit />
@@ -15,6 +15,9 @@
 
 <script>
 import TypeEdit from "~/components/typeManage/TypeEdit.vue";
+import { queryCategoryPage } from "~/config/api";
+import { getServerDomain } from "~/utils";
+
 export default {
   name: "index",
   components: { TypeEdit },
@@ -27,6 +30,10 @@ export default {
       ],
       list: [{id: 222, name: 1, img: 2}],
     }
+  },
+  async asyncData({ $axios, req }){
+    const data = await $axios.post(getServerDomain(req) + queryCategoryPage);
+    console.log(data)
   },
   methods: {
     handleAddType(){

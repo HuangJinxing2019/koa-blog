@@ -7,6 +7,7 @@ const path = require('path')
 const authRouter = require('./routes/auth')
 const blogsRouter = require('./routes/blogs')
 const fileRouter = require('./routes/file')
+const categoryRouter = require('./routes/category')
 
 const app = new Koa()
 app.keys = [PRIVATE_KEY]
@@ -27,6 +28,8 @@ app.use(blogsRouter.routes());
 app.use(blogsRouter.allowedMethods());
 app.use(fileRouter.routes());
 app.use(fileRouter.allowedMethods());
+app.use(categoryRouter.routes());
+app.use(categoryRouter.allowedMethods());
 
 
 module.exports = app.callback();

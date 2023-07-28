@@ -30,11 +30,13 @@ export default function ({$axios, redirect}) {
       Message.error(response.data.msg)
       // 重定向到登录页
       redirect('/login');
+      return Promise.reject(response.data)
     } else if(response.data.code !== 200){
       Message.error(response.data.msg)
+      return Promise.reject(response.data)
     }
     // 返回响应
-    return response;
+    return response.data;
   },
   error => {
     return Promise.reject(error);

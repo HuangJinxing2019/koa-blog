@@ -43,16 +43,21 @@
 
 
 /*文本按钮*/
+.ivu-btn-default {
+  background-color: transparent;
+  border-color: var(--border-color-def);
+}
 .ivu-btn-text,
 .ivu-btn-error,
 .ivu-btn-info,
 .ivu-btn-success,
 .ivu-btn-warning,
-.ivu-btn-primary
-{
+.ivu-btn-primary,
+.ivu-btn-default {
   color: var(--text-color-def);
 }
-.ivu-btn-text:hover{
+.ivu-btn-text:hover,
+.ivu-btn-default:hover{
   background-color: var(--bg-color-content);
 }
 

@@ -3,7 +3,7 @@
     <Upload
       type="drag"
       :accept="accept"
-      :max-size="maxSize"
+
       :on-success="handleSuccess"
       :show-upload-list="false"
       :action="fileUpload">
