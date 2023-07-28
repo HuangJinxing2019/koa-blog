@@ -28,15 +28,6 @@ app.use(blogsRouter.allowedMethods());
 app.use(fileRouter.routes());
 app.use(fileRouter.allowedMethods());
 
-// 添加中间件，处理文件上传成功后的响应
-app.use(async (ctx, next) => {
-  await next();
-  if (ctx.req.file) {
-    // 如果文件上传成功，手动设置正确的响应头
-    ctx.response.type = 'json';
-    ctx.response.status = 200;
-  }
-});
 
 module.exports = app.callback();
 

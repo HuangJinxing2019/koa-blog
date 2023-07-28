@@ -1,5 +1,5 @@
 const seq = require('../connections/mysql_connect'),
-  { STRING, INT_UNSIGNED, TEXT, BOOLEAN } = require('../../config/db_type_config');
+  { STRING, INT_UNSIGNED, TEXT, BOOLEAN, INT } = require('../../config/db_type_config');
 
 const SysBlogs = seq.define('sys_blogs', {
   id: {
@@ -44,3 +44,4 @@ const SysBlogs = seq.define('sys_blogs', {
     type: STRING(11),
   }
 })
+module.exports = SysBlogs

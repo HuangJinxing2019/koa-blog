@@ -2,8 +2,9 @@
   <div>
     <Upload
       type="drag"
+      :accept="accept"
+      :max-size="maxSize"
       :on-success="handleSuccess"
-      :on-progress="progressChange"
       :show-upload-list="false"
       :action="fileUpload">
       <div style="padding: 20px 0">
@@ -28,6 +29,14 @@ export default {
     value:{
       type: String,
       default: null,
+    },
+    accept: {
+      type: String,
+      default: () => '.jpeg,.jpg,.png,.gif',
+    },
+    maxSize: {
+      type: Number,
+      default: () => 2 * 1024
     }
   },
   emits: ['update:value'],
@@ -37,9 +46,6 @@ export default {
     }
   },
   methods: {
-    progressChange(event){
-      console.log(event)
-    },
     handleSuccess(data){
       this.$emit('update:value', data.data)
     }
