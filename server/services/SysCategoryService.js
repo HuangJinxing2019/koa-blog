@@ -3,9 +3,10 @@ const { Op } = require('sequelize')
 class SysCategoryService{
 
   async queryList({ offset, limit, name }){
-    return SysCategoryModel.findAll({
+    return SysCategoryModel.findAndCountAll({
       limit,
-      offset
+      offset,
+      raw: true,
     })
   }
   async create(data){

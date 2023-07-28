@@ -1,7 +1,8 @@
 <template>
   <Modal
-    v-model="showModal"
+    :value="show"
     title="类型编辑"
+    @on-visible-change="handleCancel"
     :mask-closable="false">
     <Form ref="formRef" :model="formData" :rules="formRules" :label-width="80">
       <FormItem prop="name" label="分类名称">
@@ -12,7 +13,7 @@
       </FormItem>
     </Form>
     <template #footer>
-      <Button @click="showModal = false">取消</Button>
+      <Button @click="handleCancel(false)">取消</Button>
       <Button type="primary" @click="confirmSubmit">提交</Button>
     </template>
   </Modal>
@@ -24,9 +25,14 @@ import { createCategory, updateCategory } from "~/config/api";
 export default {
   name: "TypeEdit",
   components: { SingleUpload },
+  props: {
+    show: {
+      type: Boolean,
+      default: false,
+    }
+  },
   data(){
     return{
-      showModal: true,
       loading: false,
       formData: {
         name: '',
@@ -37,6 +43,7 @@ export default {
       }
     }
   },
+  emits: ['update:show', 'success'],
   methods: {
     confirmSubmit(){
       this.$refs.formRef.validate(async (valid) => {
@@ -46,12 +53,16 @@ export default {
           await this.$axios.post(createCategory, this.formData)
           this.loading = false
           this.$Message.success('操作成功')
+          this.$emit('update:show', false)
+          this.$emit('success')
         }catch (err){
           this.loading = false
         }
-
       })
     },
+    handleCancel(status){
+      this.$emit('update:show', status)
+    }
   }
 }
 </script>

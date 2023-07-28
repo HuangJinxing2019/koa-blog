@@ -36,7 +36,7 @@ export default function ({$axios, redirect}) {
       return Promise.reject(response.data)
     }
     // 返回响应
-    return response.data;
+    return response;
   },
   error => {
     return Promise.reject(error);

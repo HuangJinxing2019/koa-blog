@@ -1,17 +1,15 @@
 const sysCategoryService = require('../services/SysCategoryService')
-const { returnInfo } = require('../libs/utils')
+const { returnInfo, returnPageData } = require('../libs/utils')
 const { PARAMS_ERROR, UNKNOWN_ERROR, SUCCESS } = require('../config/error_config')
 class CategoryController{
   async queryCategoryPage(ctx){
-    console.log('queryCategoryPagequeryCategoryPagequeryCategoryPage')
     try {
       let { name, offset, limit } = ctx.request.body;
-      const result = await sysCategoryService.queryList({
+      const { count, rows } = await sysCategoryService.queryList({
         offset,
         limit,
       })
-      console.log(result.dataValues)
-      ctx.body = returnInfo(SUCCESS, {});
+      ctx.body = returnInfo(SUCCESS, returnPageData(offset, limit, count, rows));
     } catch (err) {
       console.log('分页查询分类异常', err)
       ctx.body = returnInfo(UNKNOWN_ERROR)

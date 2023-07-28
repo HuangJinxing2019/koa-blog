@@ -92,6 +92,11 @@ tr.ivu-table-row-hover td,
   background-color: var(--bg-color-card);
 }
 
+.ivu-table-wrapper-with-border>.ivu-spin-fix{
+  background-color: rgba(13,17,23, .8);
+  border-color: var(--border-color-def);
+}
+
 /*提示消息message*/
 .ivu-message-notice-content{
   color: var(--text-color-def);

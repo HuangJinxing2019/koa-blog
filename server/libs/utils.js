@@ -12,6 +12,15 @@ function returnInfo(statusInfo, data = null){
   }
 }
 
+function returnPageData(offset, limit, count, rows){
+  return {
+    pages: Math.ceil(count / limit),
+    total: count,
+    curPage: (offset / limit) + 1,
+    list: rows,
+  }
+}
+
 async function genToken(data) {
   return await jwt.sign(data, PRIVATE_KEY, { expiresIn: EXPIRES_IN })
 }
@@ -74,5 +83,6 @@ module.exports = {
   genToken,
   verifyToken,
   getRandomStr,
-  qiniuUpload
+  qiniuUpload,
+  returnPageData
 }
