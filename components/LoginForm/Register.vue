@@ -32,9 +32,9 @@ export default {
         nickname: '',
       },
       rules: {
-        nickname: [{require: true, message: '请输入2~8位字符的昵称', trigger: 'blur', pattern: /^.{2,8}$/}],
-        account: [{require: true, message: '请输入正确的手机号', trigger: 'blur', pattern: /^1[3-9]\d{9}$/}],
-        password: [{require: true, message: '请输入8~16位带有大小写字母数字特殊字符', trigger: 'blur', pattern: /(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{8,16}$/}]
+        nickname: [{ required: true, message: '请输入2~8位字符的昵称', trigger: 'blur', pattern: /^.{2,8}$/ }],
+        account: [{ required: true, message: '请输入正确的手机号', trigger: 'blur', pattern: /^1[3-9]\d{9}$/ }],
+        password: [{ required: true, message: '请输入8~16位带有大小写字母数字特殊字符', trigger: 'blur', pattern: /(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{8,16}$/ }]
       }
     }
   },

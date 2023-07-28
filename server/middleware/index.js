@@ -7,6 +7,7 @@ async function verifyCheckin(ctx, next){
   try {
     const info = await verifyToken(token);
     ctx.request.userInfo = { code: 200, data: info };
+    console.log('登录验证通过')
     next()
   } catch (err) {
     ctx.body = returnInfo(LOGIN_INVALIDATION)

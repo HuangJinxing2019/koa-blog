@@ -11,4 +11,5 @@ module.exports = {
   // 无符号类型，用于id自增属性
   INT_UNSIGNED: Sequelize.INTEGER.UNSIGNED,
   DATEONLY: Sequelize.DATEONLY,
+  BOOLEAN: Sequelize.BOOLEAN,
 }

@@ -2,27 +2,32 @@ const { createReadStream, existsSync } = require('fs')
 const path = require('path');
 const { returnInfo, qiniuUpload } = require("../libs/utils");
 
-const { NOT_FOUND_ERROR, SUCCESS, UPLOAD_ERROR } = require('../config/error_config')
+const { NOT_FOUND_ERROR, SUCCESS, UPLOAD_ERROR, UNKNOWN_ERROR } = require('../config/error_config')
 
 class FileController{
   async upload(ctx){
     const file = ctx.request.files && ctx.request.files.file;
-    // try {
-    //   const data = await qiniuUpload(file.filepath, file.newFilename);
-    //   ctx.body = returnInfo(SUCCESS,'http://ryg5iafoy.hn-bkt.clouddn.com/' + data.key)
-    // } catch (err){
-    //   console.log('上传七牛错误'+ err)
-    // }
     try {
-      if(!file){
-        ctx.body = returnInfo(UPLOAD_ERROR)
-      }else {
-        ctx.status = 200
-        ctx.body = returnInfo(SUCCESS,'/api/file/getFile/' + file.newFilename)
-      }
-    }catch (err){
-      console.log('上传文件响应错误：', err)
+      const data = await qiniuUpload(file.filepath, file.newFilename);
+      console.log('上传七牛成功', data)
+      console.log('将数据返回给前端');
+      console.log('返回内容', returnInfo(SUCCESS,'http://ryg5iafoy.hn-bkt.clouddn.com/' + data.key))
+      ctx.body = returnInfo(SUCCESS,'http://ryg5iafoy.hn-bkt.clouddn.com/' + data.key)
+    } catch (err){
+      console.log('上传出错了：'+ err)
+      ctx.body = returnInfo(UNKNOWN_ERROR)
     }
+    // try {
+    //   if(!file){
+    //     ctx.body = returnInfo(UPLOAD_ERROR)
+    //   }else {
+    //     ctx.status = 200
+    //     ctx.body = returnInfo(SUCCESS,'/api/file/getFile/' + file.newFilename)
+    //   }
+    // }catch (err){
+    //   console.log('上传出错了：', err)
+    //   ctx.body = returnInfo(UNKNOWN_ERROR)
+    // }
   }
   getFile(ctx){
     const { filename } = ctx.params
@@ -37,7 +42,6 @@ class FileController{
         ctx.status = 404
         ctx.body = returnInfo(NOT_FOUND_ERROR)
       }
-
     } else {
       ctx.status = 404
       ctx.body = returnInfo(NOT_FOUND_ERROR)
