@@ -10,6 +10,11 @@ body,
   text-align: right;
   margin-bottom: 10px;
 }
+.table-page{
+  width: 100%;
+  text-align: right;
+  margin-top: 10px;
+}
 
 /* 滚动条轨道 */
 ::-webkit-scrollbar {

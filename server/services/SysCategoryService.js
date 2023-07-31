@@ -28,9 +28,18 @@ class SysCategoryService{
         id: {
           [Op.not]: id,
         }
-      }
+      },
+      raw: true,
     })
-    return SysCategoryService.update(data)
+    if (!res) {
+      return SysCategoryModel.update(data, { where: { id: data.id } })
+    }
+    return Promise.reject('类型名称已存在')
+  }
+  async delete(id){
+    return SysCategoryModel.destroy({
+      where: { id }
+    })
   }
 }
 module.exports = new SysCategoryService()

@@ -30,19 +30,28 @@ class CategoryController{
 
   }
   async updateCategory(ctx){
-    const { name, imgUrl, remark } = ctx.request.body
+    const { id, name, imgUrl, remark, creator } = ctx.request.body
     if (!name) return ctx.body = returnInfo({...PARAMS_ERROR, msg: '类型名称不能为空'})
     if (name.length > 12) return ctx.body = returnInfo({...PARAMS_ERROR, msg: '类型名称长度字符数大于12'})
     try {
-      const result = await sysCategoryService.update({name, imgUrl, remark});
+      const result = await sysCategoryService.update({ id, name, imgUrl, remark, creator });
       ctx.body = returnInfo(SUCCESS, result.dataValues)
     } catch (err){
       console.log('更新分类异常', err)
+      typeof err === 'string' && (UNKNOWN_ERROR.msg = err)
       ctx.body = returnInfo(UNKNOWN_ERROR)
     }
   }
-  removeCategory(ctx){
-
+  async deleteCategory(ctx){
+    const { id } = ctx.request.body
+    if(!id) return ctx.body = returnInfo({ PARAMS_ERROR, msg: '类型id不能为空' });
+    try {
+      await sysCategoryService.delete(id);
+      ctx.body = returnInfo(SUCCESS, { data: true })
+    } catch (err) {
+      console.log('删除分类异常', err)
+      ctx.body = returnInfo(UNKNOWN_ERROR)
+    }
   }
 }
 module.exports = new CategoryController();

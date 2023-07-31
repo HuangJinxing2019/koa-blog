@@ -3,9 +3,11 @@
     <Upload
       type="drag"
       :accept="accept"
-
+      :max-size="maxSize"
       :on-success="handleSuccess"
       :show-upload-list="false"
+      :on-exceeded-size="onExceededSize"
+      :on-format-error="onFormatError"
       :action="fileUpload">
       <div style="padding: 20px 0">
         <div v-if="!value">
@@ -48,6 +50,12 @@ export default {
   methods: {
     handleSuccess(data){
       this.$emit('update:value', data.data)
+    },
+    onFormatError(){
+      this.$Message.error('请上传后缀为' + this.accept + '的图片')
+    },
+    onExceededSize(){
+      this.$Message.error('请上传' + Math.floor(this.maxSize / 1024) + 'M内的图片')
     }
   }
 }

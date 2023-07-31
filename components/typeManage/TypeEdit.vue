@@ -29,6 +29,10 @@ export default {
     show: {
       type: Boolean,
       default: false,
+    },
+    data: {
+      type: Object,
+      default: () => null
     }
   },
   data(){
@@ -49,8 +53,9 @@ export default {
       this.$refs.formRef.validate(async (valid) => {
         if(!valid) return
         try {
+          const url = this.formData.id ? updateCategory : createCategory
           this.loading = true
-          await this.$axios.post(createCategory, this.formData)
+          await this.$axios.post(url, this.formData)
           this.loading = false
           this.$Message.success('操作成功')
           this.$emit('update:show', false)
@@ -62,6 +67,18 @@ export default {
     },
     handleCancel(status){
       this.$emit('update:show', status)
+    }
+  },
+  watch: {
+    data(newValue){
+      if(newValue){
+        this.formData = { ...newValue }
+      } else {
+        this.formData = {
+          name: '',
+          imgUrl: ''
+        }
+      }
     }
   }
 }

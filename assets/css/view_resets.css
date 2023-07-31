@@ -151,5 +151,26 @@ tr.ivu-table-row-hover td,
   border-color: var(--border-color-def);
 }
 
+/*分页样式*/
+.ivu-page-next, .ivu-page-prev{
+  background-color: var(--bg-color-card);
+  border-color: var(--border-color-def);
+}
+.ivu-page-item{
+  background-color: var(--bg-color-card);
+  border-color: var(--border-color-def);
+}
+.ivu-select-selection, .ivu-select-dropdown{
+  background-color: var(--bg-color-card);
+  border-color: var(--border-color-def);
+  color: var(--text-color-def);
+}
+.ivu-select-item{
+  color: var(--text-color-def);
+}
+.ivu-select-item-focus,
+.ivu-select-item:hover{
+  background-color: var(--bg-color-content);
+}
 
 
