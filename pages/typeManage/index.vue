@@ -36,7 +36,7 @@ import { queryCategoryPage, deleteCategory } from '~/config/api'
 import { getServerDomain } from '~/utils'
 
 export default {
-  name: 'index',
+  name: 'typeManage',
   components: { TypeEdit },
   data() {
     return {

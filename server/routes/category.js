@@ -6,6 +6,6 @@ const categoryController = require('../controller/CategoryController')
 router.post('/createCategory', verifyCheckin, categoryController.createCategory)
 router.post('/updateCategory', verifyCheckin, categoryController.updateCategory)
 router.post('/queryCategoryPage', verifyCheckin, pageFormat, categoryController.queryCategoryPage)
-router.post('/deleteCategory', verifyCheckin, pageFormat, categoryController.deleteCategory)
+router.post('/deleteCategory', verifyCheckin, categoryController.deleteCategory)
 
 module.exports = router

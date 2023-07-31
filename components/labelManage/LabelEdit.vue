@@ -3,13 +3,16 @@
     :value="show"
     title="类型编辑"
     @on-visible-change="handleCancel"
-    :mask-closable="false">
+    :mask-closable="false"
+  >
     <Form ref="formRef" :model="formData" :rules="formRules" :label-width="80">
       <FormItem prop="name" label="分类名称">
-        <Input v-model="formData.name" :maxlength="12" show-word-limit placeholder="请输入1~12字符名称" />
-      </FormItem>
-      <FormItem prop="imgUrl" label="分类图片">
-        <SingleUpload :value.sync="formData.imgUrl"/>
+        <Input
+          v-model="formData.name"
+          :maxlength="12"
+          show-word-limit
+          placeholder="请输入1~12字符名称"
+        />
       </FormItem>
       <FormItem prop="remark" label="备注">
         <Input v-model="formData.remark" maxlength="64" show-word-limit type="textarea" placeholder="请输入..." />
@@ -17,17 +20,17 @@
     </Form>
     <template #footer>
       <Button @click="handleCancel(false)">取消</Button>
-      <Button type="primary" @click="confirmSubmit">提交</Button>
+      <Button :loading="btnLoading" type="primary" @click="confirmSubmit">提交</Button>
     </template>
   </Modal>
 </template>
 
 <script>
-import SingleUpload from "~/components/imageUplad/SingleUpload.vue";
-import { createCategory, updateCategory } from "~/config/api";
+import { createLabel, updateLabel } from "~/config/api";
+
 export default {
-  name: "TypeEdit",
-  components: { SingleUpload },
+  name: 'LabelEdit',
+  emits: ['update:show', 'success'],
   props: {
     show: {
       type: Boolean,
@@ -40,10 +43,9 @@ export default {
   },
   data(){
     return{
-      loading: false,
+      btnLoading: false,
       formData: {
         name: '',
-        imgUrl: '',
         remark: '',
       },
       formRules: {
@@ -51,26 +53,24 @@ export default {
       }
     }
   },
-  emits: ['update:show', 'success'],
   methods: {
+    handleCancel(status){
+      this.$emit('update:show', status)
+    },
     confirmSubmit(){
+      this.btnLoading = true
       this.$refs.formRef.validate(async (valid) => {
-        if(!valid) return
+        if(!valid) return  this.btnLoading = false
+        const url = this.formData.id ? updateLabel : createLabel;
         try {
-          const url = this.formData.id ? updateCategory : createCategory
-          this.loading = true
           await this.$axios.post(url, this.formData)
-          this.loading = false
-          this.$Message.success('操作成功')
+          this.btnLoading = false
           this.$emit('update:show', false)
           this.$emit('success')
         }catch (err){
-          this.loading = false
+          this.btnLoading = false
         }
       })
-    },
-    handleCancel(status){
-      this.$emit('update:show', status)
     }
   },
   watch: {
@@ -80,7 +80,6 @@ export default {
       } else {
         this.formData = {
           name: '',
-          imgUrl: '',
           remark: '',
         }
       }
@@ -89,6 +88,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

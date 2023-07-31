@@ -12,7 +12,7 @@ function returnInfo(statusInfo, data = null){
   }
 }
 
-function returnPageData(offset, limit, count, rows){
+function returnPageData(offset, limit, count = 0, rows = []){
   return {
     pages: Math.ceil(count / limit),
     total: count,

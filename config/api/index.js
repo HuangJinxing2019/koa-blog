@@ -7,6 +7,10 @@ export const createCategory = baseUrl + '/api/category/createCategory' // 创建
 export const updateCategory = baseUrl + '/api/category/updateCategory' // 修改分类
 export const queryCategoryPage = baseUrl + '/api/category/queryCategoryPage' // 分页查询类型
 export const deleteCategory = baseUrl + '/api/category/deleteCategory' // 删除类型
+export const queryLabelPage = baseUrl + '/api/label/queryLabelPage' // 标签查询
+export const createLabel = baseUrl + '/api/label/createLabel' // 创建标签
+export const updateLabel = baseUrl + '/api/label/updateLabel' // 修改标签
+export const deleteLabel = baseUrl + '/api/label/deleteLabel' // 删除标签
 
 
 export const blogsQueryList = baseUrl + '/api/blogs/queryList'// 博客文章查询

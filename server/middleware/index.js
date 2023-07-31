@@ -15,18 +15,25 @@ async function verifyCheckin(ctx, next){
 }
 
 async function pageFormat(ctx, next){
-  let pageSize = 10,
-      pageNum = 1;
-  if(ctx.request.body){
-    pageSize = ctx.request.body.pageSize;
-    pageNum = ctx.request.body.pageNum;
-  }else {
-    ctx.request.body = {}
+  const body = ctx.request.body;
+  let queryData = {
+    limit: 10,
+    offset: 0,
+    whereData: {}
+  };
+  if(body){
+    const { pageNum, pageSize } = body;
+    console.log(body)
+    !Number.isNaN(Number(pageNum)) && (queryData.offset = pageNum - 1)
+    !Number.isNaN(Number(pageSize)) && (queryData.limit = pageSize)
+    for (let key in body){
+     if(key !== 'pageSize' && key !== 'pageNum'){
+       if(typeof body[key] === 'string' && body[key].trim() !== '') queryData.whereData[key] = body[key]
+       else if(typeof body[key] !== 'string') queryData.whereData[key] = body[key]
+     }
+    }
   }
-  Number.isNaN(Number(pageNum)) && (pageNum = 1)
-  Number.isNaN(Number(pageSize)) && (pageSize = 10)
-  ctx.request.body.limit = pageSize;
-  ctx.request.body.offset = (pageNum - 1) * 10
+  ctx.request.body = {...body, ...queryData}
   await next()
 }
 

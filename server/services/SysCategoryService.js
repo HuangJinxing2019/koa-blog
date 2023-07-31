@@ -2,8 +2,9 @@ const SysCategoryModel = require('../db/models/sys_category')
 const { Op } = require('sequelize')
 class SysCategoryService{
 
-  async queryList({ offset, limit, name }){
+  async queryList({ offset, limit, whereData }){
     return SysCategoryModel.findAndCountAll({
+      where: whereData,
       limit,
       offset,
       raw: true,
@@ -12,7 +13,8 @@ class SysCategoryService{
   async create(data){
     const { name, creator } = data
     const res = await SysCategoryModel.findOne({
-      where: { name, creator }
+      where: { name, creator },
+      raw: true,
     })
     if(res){
       return Promise.reject('类型名称已存在')
