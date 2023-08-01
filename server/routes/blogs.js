@@ -1,8 +1,10 @@
 const router = require('koa-router')({prefix: '/blogs'})
+const blogsController = require('../controller/BlogsController')
 
-const { verifyCheckin } = require('../middleware')
-router.post('/queryList', verifyCheckin, (ctx) => {
-  ctx.body = ctx.request.userInfo
-})
+const { verifyCheckin, pageFormat } = require('../middleware')
+
+router.post('/queryBlogsListPage', verifyCheckin, pageFormat, blogsController.queryListPage)
+router.post('/createBlogs', verifyCheckin, blogsController.createBlogs)
+router.post('/deleteBlogs', verifyCheckin, blogsController.deleteBlogs)
 
 module.exports = router

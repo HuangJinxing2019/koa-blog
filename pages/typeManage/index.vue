@@ -52,6 +52,7 @@ export default {
         { title: '类型图片',  align: 'center', render: (h, { row }) => {
           return h('img', { attrs: { src: row.imgUrl }, style: {width: '80px', height: '40px'}})
         }},
+        { title: '备注', key: 'remark', align: 'center' },
         { title: '操作', slot: 'action', align: 'center', width: 200 },
       ],
       editData: {},

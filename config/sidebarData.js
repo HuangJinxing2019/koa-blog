@@ -1,7 +1,7 @@
 export default [
   {
     id: 1,
-    name: '博客管理',
+    name: '文章管理',
     path: '/blogsManage',
     icon: 'ios-analytics',
   },

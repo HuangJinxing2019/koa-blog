@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapper">
     <Form :model="queryData" :label-width="100" inline>
       <FormItem prop="name" label="标签名称">
         <Input v-model="queryData.name" placeholder="请输入" style="width: 240px"/>

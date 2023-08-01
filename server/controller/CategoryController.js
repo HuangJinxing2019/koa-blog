@@ -12,6 +12,15 @@ class CategoryController{
       ctx.body = returnInfo(UNKNOWN_ERROR)
     }
   }
+  async queryCategoryListAll(ctx){
+   try {
+     const res = await sysCategoryService.queryListAll();
+     ctx.body = returnInfo(SUCCESS, res)
+   } catch (err){
+     console.log('查询分类异常', err)
+     ctx.body = returnInfo(UNKNOWN_ERROR)
+   }
+  }
   async createCategory(ctx){
     const { name, imgUrl, remark } = ctx.request.body,
           { account } = ctx.request.userInfo;

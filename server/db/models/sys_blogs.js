@@ -33,10 +33,12 @@ const SysBlogs = seq.define('sys_blogs', {
   },
   status: {
     comment: '状态 1启用， 2关闭',
+    defaultValue: 1,
     type: INT(1),
   },
   open: {
     comment: '是否公开',
+    defaultValue: true,
     type: BOOLEAN,
   },
   creator: {

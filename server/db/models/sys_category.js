@@ -1,5 +1,5 @@
 const seq = require('../connections/mysql_connect'),
-  { STRING, INT_UNSIGNED } = require('../../config/db_type_config');
+  { STRING, INT_UNSIGNED, INT } = require('../../config/db_type_config');
 
 const SyaCategory = seq.define('sys_category', {
   id: {
@@ -23,6 +23,16 @@ const SyaCategory = seq.define('sys_category', {
   remark: {
     comment: '备注',
     type: STRING(64),
+  },
+  openCount: {
+    comment: '文章公开数量',
+    type: INT,
+    defaultValue: 0,
+  },
+  count: {
+    comment: '文章总数量',
+    type: INT,
+    defaultValue: 0,
   },
 })
 

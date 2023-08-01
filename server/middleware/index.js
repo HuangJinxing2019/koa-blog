@@ -16,10 +16,11 @@ async function verifyCheckin(ctx, next){
 
 async function pageFormat(ctx, next){
   const body = ctx.request.body;
+  const { account } = ctx.request.userInfo;
   let queryData = {
     limit: 10,
     offset: 0,
-    whereData: {}
+    whereData: { creator: account }
   };
   if(body){
     const { pageNum, pageSize } = body;

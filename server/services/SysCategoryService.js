@@ -10,6 +10,9 @@ class SysCategoryService{
       raw: true,
     })
   }
+  async queryListAll(){
+    return SysCategoryModel.findAll({ raw: true })
+  }
   async create(data){
     const { name, creator } = data
     const res = await SysCategoryModel.findOne({
@@ -42,6 +45,24 @@ class SysCategoryService{
     return SysCategoryModel.destroy({
       where: { id }
     })
+  }
+
+  // 设置数量。type为create 文章创建，update文章权限更新, delete文章删除。
+  async setCount({ id, open, type }){
+    try {
+      if(type === 'create') {
+        if (open) await SysCategoryModel.increment({ count: 1, openCount: 1 }, { where: { id } })
+        else await SysCategoryModel.increment({ count: 1 }, { where: { id } })
+      } else if(type === 'update') {
+        if(open) await SysCategoryModel.increment({ openCount: 1 }, { where: { id } })
+        else await SysCategoryModel.increment({ openCount: -1 }, { where: { id } })
+      } else if(type === 'delete'){
+        if (open) await SysCategoryModel.increment({ count: -1, openCount: -1 }, { where: { id } })
+        else await SysCategoryModel.increment({ count: -1 }, { where: { id } })
+      }
+    } catch (err){
+      return Promise.reject(err)
+    }
   }
 }
 module.exports = new SysCategoryService()

@@ -20,7 +20,7 @@ class LabelController{
     if (remark && remark.length > 64) return ctx.body = returnInfo({ ...PARAMS_ERROR, msg: '备注字符长度不能大于64' })
     try {
       const res = await sysLabelService.create({ name, remark, creator: account })
-      ctx.body = returnInfo(SUCCESS, res)
+      ctx.body = returnInfo(SUCCESS, res.dataValues)
     }catch (err){
       console.log('创建标签异常', err)
       if (typeof err === 'string') ctx.body = returnInfo({...UNKNOWN_ERROR, msg: err})

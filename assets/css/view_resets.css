@@ -33,7 +33,8 @@
   background-color: var(--bg-color-card);
 }
 .ivu-modal-confirm-head-title,
-.ivu-modal-header p, .ivu-modal-header-inner{
+.ivu-modal-header p, .ivu-modal-header-inner,
+.ivu-modal-confirm-body{
   color: var(--text-color-def);
 }
 .ivu-modal-header,
