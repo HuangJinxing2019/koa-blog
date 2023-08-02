@@ -46,7 +46,7 @@ export default {
       },
       tableColumns: [
         { title: '文章标题', key: 'title', align: 'center' },
-        { title: '文章类型', key: 'categoryId', align: 'center' },
+        { title: '文章类型', key: 'categoryName', align: 'center' },
         { title: '操作', slot: 'action', align: 'center', width: 200 },
       ],
       list: [],

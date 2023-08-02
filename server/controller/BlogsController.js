@@ -10,7 +10,7 @@ class BlogsController{
       ctx.body = returnInfo(SUCCESS, returnPageData(offset, limit, count, rows));
     }catch (err){
       console.log('获取博客列表异常', err)
-      returnInfo(UNKNOWN_ERROR)
+      ctx.body = returnInfo(UNKNOWN_ERROR)
     }
   }
   async createBlogs(ctx){

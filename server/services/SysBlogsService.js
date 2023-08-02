@@ -1,20 +1,22 @@
+const Sequelize = require('sequelize')
 const SysBlogsModel = require('../db/models/sys_blogs')
 const SysCategoryModel = require('../db/models/sys_category')
 const sysCategoryService = require('./SysCategoryService');
-const { where } = require("sequelize");
+
+SysBlogsModel.belongsTo(SysCategoryModel, { as: 'c', foreignKey: 'categoryId', targetKey: 'id' });
+SysCategoryModel.hasOne(SysBlogsModel, { foreignKey: 'categoryId', sourceKey: 'id' });
 
 class SysBlogsService{
-
   async queryList({ limit, offset, whereData }){
     return SysBlogsModel.findAndCountAll({
+      attributes: [[Sequelize.col('c.name'), 'categoryName'], 'id', 'title', 'open', 'categoryId', 'status', 'createdAt', 'updatedAt', 'mainImgUrl'],
       where: whereData,
-      include: [
-        {
-          model: SysCategoryModel,
-          on: { id: SysCategoryModel.col('sysBlogsModel.categoryId') },
-          attributes: [['name', 'categoryName']],
-        }
-      ],
+      include: [{
+        model: SysCategoryModel,
+        attributes: [],
+        as: 'c',
+      }],
+      raw: true,
       limit,
       offset,
     })
