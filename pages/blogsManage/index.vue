@@ -47,6 +47,9 @@ export default {
       tableColumns: [
         { title: '文章标题', key: 'title', align: 'center' },
         { title: '文章类型', key: 'categoryName', align: 'center' },
+        { title: '是否公开', align: 'center', render: (h, { row }) => {
+          return h('i-switch', { props: { value: row.open, trueValue: 1, falseValue: 0 } })
+        }},
         { title: '操作', slot: 'action', align: 'center', width: 200 },
       ],
       list: [],
@@ -70,8 +73,8 @@ export default {
       this.queryData.title = ''
       this.getList();
     },
-    addSuccessChange(data){
-      console.log(data)
+    addSuccessChange(){
+      this.getList()
     },
     async getList(){
       try {

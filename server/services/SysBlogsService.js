@@ -9,7 +9,7 @@ SysCategoryModel.hasOne(SysBlogsModel, { foreignKey: 'categoryId', sourceKey: 'i
 class SysBlogsService{
   async queryList({ limit, offset, whereData }){
     return SysBlogsModel.findAndCountAll({
-      attributes: [[Sequelize.col('c.name'), 'categoryName'], 'id', 'title', 'open', 'categoryId', 'status', 'createdAt', 'updatedAt', 'mainImgUrl'],
+      attributes: [[Sequelize.col('c.name'), 'categoryName'], 'id', 'title', 'open', 'categoryId', 'status', 'updatedAt', 'mainImgUrl'],
       where: whereData,
       include: [{
         model: SysCategoryModel,

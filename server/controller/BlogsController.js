@@ -21,7 +21,7 @@ class BlogsController{
     if (!categoryId) return ctx.body = returnInfo({ ...PARAMS_ERROR, msg: '文章分类不能为空'});
     if (typeof open !== 'boolean') return ctx.body = returnInfo({ ...PARAMS_ERROR, msg: '是否公开参数错误'});
     try {
-      const res = sysBlogsService.create({ title, open, categoryId, creator: account })
+      const res = await sysBlogsService.create({ title, open, categoryId, creator: account })
       ctx.body = returnInfo(SUCCESS, res.dataValues)
     }catch (err){
       console.log('创建文章错误', err)
