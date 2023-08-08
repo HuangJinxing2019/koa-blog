@@ -24,9 +24,16 @@ export default {
         height: 700,
         theme: 'dark',
         placeholder: '开始编辑...',
+        codeTheme: 'solarized-dark256',
         outline: {
           enable: true,
           position: 'right'
+        },
+        preview: {
+          hljs: {
+            style: 'solarized-dark256',
+            lineNumber: true
+          }
         }
       })
     }
