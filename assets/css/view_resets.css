@@ -139,6 +139,7 @@ tr.ivu-table-row-hover td,
 /*气泡提示*/
 .ivu-poptip-inner{
   background-color: var(--bg-color-card);
+  border: 1px solid var(--border-color-def);
 }
 .ivu-poptip-arrow,
 .ivu-poptip-popper[x-placement^=bottom] .ivu-poptip-arrow,
@@ -161,17 +162,31 @@ tr.ivu-table-row-hover td,
   background-color: var(--bg-color-card);
   border-color: var(--border-color-def);
 }
+
+/* select选择框 */
 .ivu-select-selection, .ivu-select-dropdown{
   background-color: var(--bg-color-card);
-  border-color: var(--border-color-def);
+  border: 1px solid var(--border-color-def);
   color: var(--text-color-def);
 }
 .ivu-select-item{
   color: var(--text-color-def);
+  text-align: center;
 }
 .ivu-select-item-focus,
 .ivu-select-item:hover{
   background-color: var(--bg-color-content);
+}
+.ivu-select-multiple .ivu-select-item-focus, .ivu-select-multiple .ivu-select-item-selected:hover{
+  background-color: var(--bg-color-card-rgba);
+}
+.ivu-select-multiple .ivu-tag{
+  background-color: var(--bg-color-card-rgba);
+  border-color: var(--border-color-def);
+}
+
+.ivu-tag-text{
+  color: var(--text-color-def);
 }
 
 

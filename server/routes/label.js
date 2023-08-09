@@ -6,6 +6,7 @@ const labelController = require('../controller/LabelController')
 router.post('/createLabel', verifyCheckin, labelController.createLabel)
 router.post('/updateLabel', verifyCheckin, labelController.updateLabel)
 router.post('/queryLabelPage', verifyCheckin, pageFormat, labelController.queryLabelPage)
+router.post('/queryLabelAll', verifyCheckin, labelController.queryLabelAll)
 router.post('/deleteLabel', verifyCheckin, labelController.deleteLabel)
 
 module.exports = router

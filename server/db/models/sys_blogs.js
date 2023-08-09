@@ -31,9 +31,13 @@ const SysBlogs = seq.define('sys_blogs', {
     type: TEXT,
     allowNull: true,
   },
+  snippet: {
+    comment: '文章摘要',
+    type: STRING(100),
+  },
   status: {
-    comment: '状态 1启用， 2关闭',
-    defaultValue: 1,
+    comment: '状态 0草稿， 1发布',
+    defaultValue: 0,
     type: INT(1),
   },
   open: {

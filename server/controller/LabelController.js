@@ -12,6 +12,14 @@ class LabelController{
       ctx.body = returnInfo(UNKNOWN_ERROR)
     }
   }
+  async queryLabelAll(ctx){
+    try {
+      const res = await sysLabelService.queryListAll()
+      ctx.body = returnInfo(SUCCESS, res)
+    } catch (err){
+      ctx.body = returnInfo(UNKNOWN_ERROR)
+    }
+  }
   async createLabel(ctx){
     const { name, remark } = ctx.request.body;
     const { account } = ctx.request.userInfo;

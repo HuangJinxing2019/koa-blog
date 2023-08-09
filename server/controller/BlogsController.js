@@ -39,6 +39,61 @@ class BlogsController{
       ctx.body = returnInfo(UNKNOWN_ERROR)
     }
   }
+  async queryById(ctx){
+    const { id } = ctx.request.body;
+    if(!id) return ctx.body = returnInfo({ ...PARAMS_ERROR, msg: 'id不能为空' });
+    try {
+      const data = await sysBlogsService.queryById(id);
+      ctx.body = returnInfo(SUCCESS, data)
+    } catch (err){
+      console.log('查询文章详情异常', err)
+      ctx.body = returnInfo(UNKNOWN_ERROR)
+    }
+  }
+  async publishBlogs(ctx){
+    const { id, labelIds, mainImgUrl, snippet } = ctx.request.body
+    if(!id) return ctx.body = returnInfo({ ...PARAMS_ERROR, msg: 'id不能为空' });
+    if(!labelIds || labelIds.length === 0) return ctx.body = returnInfo({ ...PARAMS_ERROR, msg: '标签不能为空' });
+    if(!snippet) return ctx.body = returnInfo({ ...PARAMS_ERROR, msg: '文章摘要不能为空' });
+    if(snippet.length > 100) return ctx.body = returnInfo({ ...PARAMS_ERROR, msg: '文章摘要字符长度不能大于100' });
+    try {
+      await sysBlogsService.update({
+        id,
+        labelIds: labelIds.join(','),
+        mainImgUrl,
+        snippet,
+        status: 1,
+      })
+      ctx.body = returnInfo(SUCCESS, true)
+    } catch (err) {
+      console.log('发布文章失败', err)
+      ctx.body = returnInfo(UNKNOWN_ERROR)
+    }
+  }
+  async updateContent(ctx){
+    const { id, content } = ctx.request.body
+    if(!id) return ctx.body = returnInfo({ ...PARAMS_ERROR, msg: 'id不能为空' });
+    try {
+      await sysBlogsService.updateContent({ id, content })
+      ctx.body = returnInfo(SUCCESS, true)
+    } catch (err){
+      console.log('更新文章内容出错', err)
+      ctx.body = returnInfo(UNKNOWN_ERROR)
+    }
+  }
+
+  // 更新状态
+  async updateOpen(ctx){
+    const { id, open } = ctx.request.body
+    if(!id) return ctx.body = returnInfo({ ...PARAMS_ERROR, msg: 'id不能为空' });
+    try {
+      await sysBlogsService.update({ id, open })
+      ctx.body = returnInfo(SUCCESS, true)
+    } catch (err){
+      console.log('更新状态错误', err)
+      ctx.body = returnInfo(UNKNOWN_ERROR)
+    }
+  }
 }
 
 module.exports = new BlogsController();

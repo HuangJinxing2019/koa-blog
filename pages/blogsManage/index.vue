@@ -41,7 +41,7 @@
   </div>
 </template>
 <script>
-import { queryBlogsListPage, deleteBlogs } from '~/config/api'
+import { queryBlogsListPage, deleteBlogs, blogsUpdateOpen } from '~/config/api'
 import { getServerDomain } from '~/utils'
 import AddBlogsModal from '~/components/blogsManage/AddBlogsModal.vue'
 
@@ -65,8 +65,36 @@ export default {
           align: 'center',
           render: (h, { row }) => {
             return h('i-switch', {
-              props: { value: row.open, trueValue: 1, falseValue: 0 },
+              props: { value: row.open, trueValue: 1, falseValue: 0, beforeChange:() => {
+                return new Promise(async (resolve, reject)=>{
+                  try {
+                    await this.$axios.post(blogsUpdateOpen, {id: row.id, open: row.open ? 0 : 1})
+                    resolve()
+                    this.list.forEach(item => {
+                      if(item.id === row.id) item.open = row.open ? 0 : 1
+                    })
+                  } catch (err){
+                    reject()
+                  }
+                })
+              }},
+              on: {
+                'on-change': (e) => {
+
+                }
+              }
             })
+          },
+        },
+        {
+          title: '文章状态',
+          key: 'status',
+          align: 'center',
+          render: (h, { row }) => {
+            return h('div', [
+              row.status === 0 && h('span', '草稿'),
+              row.status === 1 && h('span', '已发布')
+            ])
           },
         },
         { title: '操作', slot: 'action', align: 'center', width: 200 },

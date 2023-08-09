@@ -10,7 +10,7 @@
   </div>
 </template>
 <script>
-import { blogsQueryList } from '~/config/api'
+import { queryBlogsListPage } from '~/config/api'
 import { getServerDomain } from '~/utils'
 export default {
   name: 'IndexPage',
@@ -64,7 +64,7 @@ export default {
   },
   async created() {
     try {
-      const { data } = await this.$axios.post(blogsQueryList, {})
+      const { data } = await this.$axios.post(queryBlogsListPage, {})
     } catch (err) {
       console.log(err)
     }

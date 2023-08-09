@@ -10,6 +10,10 @@ class SysLabelService{
       raw: true,
     })
   }
+
+  async queryListAll (){
+    return sysLabelModel.findAll({ raw: true })
+  }
   async create(data){
     const { name, creator } = data;
     const res = await sysLabelModel.findOne({
