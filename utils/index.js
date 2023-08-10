@@ -1,3 +1,5 @@
+import { Message } from "view-design";
+
 export function getServerDomain(req){
   // 获取请求的协议
   if(process.server){
@@ -14,4 +16,13 @@ export function getServerCookies(str){
     pre[key] = value
     return pre
   }, {})
+}
+export function copyText(text, msg = '复制成功'){
+  return navigator.clipboard.writeText(text).then(
+    function (){
+      Message.success(msg)
+    },
+    function (err){
+      Message.error(err)
+  })
 }

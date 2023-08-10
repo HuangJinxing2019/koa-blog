@@ -54,10 +54,8 @@ class SysBlogsService {
       raw: true,
     })
     const res = await SysBlogsModel.update(data, { where: { id: data.id } });
-    console.log(data.open, open, data.status, status)
     if(data.open !== undefined && data.open !== open ||
       data.status !== undefined && data.status !== status){
-      console.log('-=-=-=-=-=-=-=-=-=-')
       await sysCategoryService.setCount({ id: categoryId, open, status, type: 'update' })
     }
 

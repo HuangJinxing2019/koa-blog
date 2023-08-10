@@ -32,6 +32,12 @@ class SysUserService{
       where: { account }
     })
   }
+  async queryUserInfo(data){
+    return sysUserModel.findOne({
+      where: data,
+      raw: true,
+    })
+  }
   // 生成openid并校验是数据库否已经存在
   async genOpenid(){
     const openid = getRandomStr(8);

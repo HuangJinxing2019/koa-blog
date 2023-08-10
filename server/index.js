@@ -9,6 +9,7 @@ const blogsRouter = require('./routes/blogs')
 const fileRouter = require('./routes/file')
 const categoryRouter = require('./routes/category')
 const labelRouter = require('./routes/label')
+const userRouter = require('./routes/user')
 
 const app = new Koa()
 app.keys = [PRIVATE_KEY]
@@ -33,6 +34,8 @@ app.use(categoryRouter.routes());
 app.use(categoryRouter.allowedMethods());
 app.use(labelRouter.routes());
 app.use(labelRouter.allowedMethods());
+app.use(userRouter.routes());
+app.use(userRouter.allowedMethods());
 
 
 module.exports = app.callback();

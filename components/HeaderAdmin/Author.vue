@@ -4,7 +4,7 @@
       <img class="avatar" src="https://i.loli.net/2017/08/21/599a521472424.jpg" />
       <span class="name">{{ userInfo?.nickname }}</span>
       <template #content>
-        <div class="poptip-content">
+        <div class="poptip-content" @click="copyLink">
           <p class="item">
             <a href="javascript:"><Icon type="ios-paper-outline" /> 我的文档</a>
           </p>
@@ -20,6 +20,7 @@
 </template>
 <script>
   import { mapActions } from "vuex";
+  import { copyText } from "~/utils";
 
   export default {
     name: 'Author',
@@ -46,7 +47,10 @@
         }catch (err){
           this.isLogout = false
         }
-      }
+      },
+      copyLink(){
+        copyText(`http://localhost:3000/user/${this.userInfo.openid}`, '复制链接成功')
+      },
     }
   }
 </script>

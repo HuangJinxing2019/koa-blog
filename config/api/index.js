@@ -22,5 +22,8 @@ export const blogsUpdateContent = baseUrl + '/api/blogs/updateContent'// 更新�
 export const publishBlogs = baseUrl + '/api/blogs/publishBlogs'// 发布文章
 export const blogsUpdateOpen = baseUrl + '/api/blogs/updateOpen'// 发布文章
 
+export const queryUserInfo = baseUrl + '/api/user/queryUserInfo'// 回去用户信息
+
+
 
 export const fileUpload = baseUrl + '/api/file/upload' // 文件上传

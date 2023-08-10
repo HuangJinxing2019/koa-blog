@@ -32,7 +32,7 @@ const SysUser = seq.define('sys_user', {
     allowNull: true,
     type: STRING
   },
-  author: {
+  avatar: {
     comment: '用户头像',
     allowNull: true,
     type: STRING,
@@ -47,6 +47,16 @@ const SysUser = seq.define('sys_user', {
     comment: '生日',
     allowNull: true,
     type: DATEONLY
+  },
+  job: {
+    comment: '职位',
+    allowNull: true,
+    type: STRING
+  },
+  coverImage: {
+    comment: '封面图片',
+    allowNull: true,
+    type: STRING
   }
 })
 
