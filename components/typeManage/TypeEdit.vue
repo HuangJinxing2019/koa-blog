@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import SingleUpload from "~/components/imageUplad/SingleUpload.vue";
+import SingleUpload from "~/components/imageUpload/SingleUpload.vue";
 import { createCategory, updateCategory } from "~/config/api";
 export default {
   name: "TypeEdit",

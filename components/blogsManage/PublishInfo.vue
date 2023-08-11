@@ -29,7 +29,7 @@
 
 <script>
 import { queryLabelAll, publishBlogs } from '~/config/api'
-import SingleUpload from '~/components/imageUplad/SingleUpload.vue'
+import SingleUpload from '~/components/imageUpload/SingleUpload.vue'
 
 export default {
   name: 'PublishInfo',

@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import SingleUpload from '~/components/imageUplad/SingleUpload.vue'
+import SingleUpload from '~/components/imageUpload/SingleUpload.vue'
 import { queryCategoryListAll, createBlogs } from "~/config/api";
 
 export default {

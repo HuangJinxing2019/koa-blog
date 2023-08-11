@@ -20,6 +20,6 @@
     height: calc(100vh - 58px);
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 20px 0;
   }
 </style>

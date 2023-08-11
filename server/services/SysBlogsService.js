@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 const SysBlogsModel = require('../db/models/sys_blogs')
 const SysCategoryModel = require('../db/models/sys_category')
+const SysUserModel = require('../db/models/sys_user')
 const sysCategoryService = require('./SysCategoryService')
 
 SysBlogsModel.belongsTo(SysCategoryModel, {
@@ -12,6 +13,17 @@ SysCategoryModel.hasOne(SysBlogsModel, {
   foreignKey: 'categoryId',
   sourceKey: 'id',
 })
+
+SysBlogsModel.belongsTo(SysUserModel, {
+  as: 'userInfo',
+  foreignKey: 'creator',
+  targetKey: 'account',
+})
+SysUserModel.hasOne(SysBlogsModel, {
+  foreignKey: 'creator',
+  sourceKey: 'account',
+})
+
 
 class SysBlogsService {
   async queryList({ limit, offset, whereData }) {
@@ -25,6 +37,7 @@ class SysBlogsService {
         'status',
         'updatedAt',
         'mainImgUrl',
+        'snippet',
       ],
       where: whereData,
       include: [
@@ -35,6 +48,37 @@ class SysBlogsService {
         },
       ],
       raw: true,
+      limit,
+      offset,
+    })
+  }
+
+  async userQueryList({ limit, offset, whereData }){
+    return SysBlogsModel.findAndCountAll({
+      attributes: [
+        [Sequelize.col('c.name'), 'categoryName'],
+        'id',
+        'title',
+        'open',
+        'categoryId',
+        'status',
+        'updatedAt',
+        'mainImgUrl',
+        'snippet',
+      ],
+      where: whereData,
+      include: [
+        {
+          model: SysCategoryModel,
+          attributes: [],
+          as: 'c',
+        },
+        {
+          model: SysUserModel,
+          as: 'userInfo',
+          raw: true,
+        },
+      ],
       limit,
       offset,
     })

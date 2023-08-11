@@ -1,15 +1,17 @@
 <template>
   <div>
     <Upload
-      type="drag"
+      :type="$slots.default.length === 0 ? 'drag' : 'select'"
       :accept="accept"
       :max-size="maxSize"
       :on-success="handleSuccess"
       :show-upload-list="false"
       :on-exceeded-size="onExceededSize"
       :on-format-error="onFormatError"
-      :action="fileUpload">
-      <div style="padding: 20px 0">
+      :action="fileUpload"
+    >
+      <slot></slot>
+      <div style="padding: 20px 0" v-if="$slots.default.length === 0">
         <div v-if="!value">
           <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
           <p>Click or drag files here to upload</p>
@@ -41,7 +43,7 @@ export default {
       default: () => 2 * 1024
     }
   },
-  emits: ['update:value'],
+  emits: ['update:value', 'success'],
   data(){
     return{
       fileUpload: fileUpload,
@@ -50,6 +52,7 @@ export default {
   methods: {
     handleSuccess(data){
       this.$emit('update:value', data.data)
+      this.$emit('success', data.data)
     },
     onFormatError(){
       this.$Message.error('请上传后缀为' + this.accept + '的图片')
@@ -57,14 +60,14 @@ export default {
     onExceededSize(){
       this.$Message.error('请上传' + Math.floor(this.maxSize / 1024) + 'M内的图片')
     }
-  }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-  .imgStyle{
-    width: auto;
-    max-width: 100%;
-    max-height: 200px;
-  }
+.imgStyle {
+  width: auto;
+  max-width: 100%;
+  max-height: 200px;
+}
 </style>

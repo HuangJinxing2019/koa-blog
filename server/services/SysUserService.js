@@ -38,6 +38,9 @@ class SysUserService{
       raw: true,
     })
   }
+  async update(data){
+    return sysUserModel.update(data, { where: { id: data.id }})
+  }
   // 生成openid并校验是数据库否已经存在
   async genOpenid(){
     const openid = getRandomStr(8);

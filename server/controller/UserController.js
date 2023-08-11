@@ -17,5 +17,17 @@ class UserController {
     }
   }
 
+  async update(ctx){
+    const { id } = ctx.request.body
+    if(!id) return ctx.body = returnInfo({...PARAMS_ERROR, msg: 'id不能为空'})
+    try {
+      await sysUserService.update(ctx.request.body);
+      ctx.body = returnInfo(SUCCESS, true)
+    }catch (err){
+      console.log('更新用户信息错误', err)
+      ctx.body = returnInfo(UNKNOWN_ERROR)
+    }
+  }
+
 }
 module.exports = new UserController();

@@ -8,6 +8,8 @@
   --bg-color-warning: #2F2115;
   --bg-color-info: #141E2E;
   --bg-color-active: #2d8cf0;
+  --bg-color-user-menu-active: rgba(30,128,255,0.2);
+  --bg-color-user-menu-hover: hsla(0,0%,100%,0.08);
 
   --border-color-def: #30363d;
   --border-color-success: #154731;
@@ -18,6 +20,7 @@
   --text-color-fff: #ffffff;
   --text-color-def: #e6edf3;
   --text-color-placeholder: #7d8590;
+  --text-color-user-menu-active: #2d8cf0;
 }
 body{
   background: var(--bg-color);

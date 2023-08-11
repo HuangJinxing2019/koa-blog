@@ -23,7 +23,7 @@ export default {
     background-color: var(--bg-color-content);
     .content {
       width: 100%;
-      max-width: 1200px;
+      max-width: 1240px;
       height: 100%;
       margin: 0 auto;
       padding: 0 20px;

@@ -13,6 +13,18 @@ class BlogsController{
       ctx.body = returnInfo(UNKNOWN_ERROR)
     }
   }
+
+  async queryUserListPage(ctx){
+    const { limit, offset, whereData } = ctx.request.body
+    try{
+      const { count, rows } = await sysBlogsService.userQueryList({limit, offset, whereData});
+      ctx.body = returnInfo(SUCCESS, returnPageData(offset, limit, count, rows));
+    }catch (err){
+      console.log('获取博客列表异常', err)
+      ctx.body = returnInfo(UNKNOWN_ERROR)
+    }
+  }
+
   async createBlogs(ctx){
     const { title, open, categoryId } = ctx.request.body;
     const { account } = ctx.request.userInfo;

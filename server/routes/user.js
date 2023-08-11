@@ -3,5 +3,6 @@ const userController = require('../controller/UserController')
 const { verifyCheckin } = require('../middleware')
 
 router.post('/queryUserInfo', userController.queryUserInfo)
+router.post('/update', userController.update)
 
 module.exports = router

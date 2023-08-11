@@ -15,6 +15,7 @@ export const updateLabel = baseUrl + '/api/label/updateLabel' // 修改标签
 export const deleteLabel = baseUrl + '/api/label/deleteLabel' // 删除标签
 
 export const queryBlogsListPage = baseUrl + '/api/blogs/queryBlogsListPage'// 博客文章查询
+export const queryUserBlogsListPage = baseUrl + '/api/blogs/queryUserBlogsListPage'// 博客文章查询
 export const createBlogs = baseUrl + '/api/blogs/createBlogs'// 创建文章
 export const deleteBlogs = baseUrl + '/api/blogs/deleteBlogs'// 删除文章
 export const blogsQueryById = baseUrl + '/api/blogs/queryById'// 获取文章详情
@@ -23,6 +24,7 @@ export const publishBlogs = baseUrl + '/api/blogs/publishBlogs'// 发布文章
 export const blogsUpdateOpen = baseUrl + '/api/blogs/updateOpen'// 发布文章
 
 export const queryUserInfo = baseUrl + '/api/user/queryUserInfo'// 回去用户信息
+export const userUpdate = baseUrl + '/api/user/update'// 更新用户信息
 
 
 
