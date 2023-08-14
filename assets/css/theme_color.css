@@ -3,6 +3,7 @@
   --bg-color-content: #0d1117;
   --bg-color-card: #161b22;
   --bg-color-card-rgba: rgba(22, 27, 34, .5);
+  --bg-color-tag: #333f4e;
   --bg-color-success: #10241f;
   --bg-color-error: #2c1414;
   --bg-color-warning: #2F2115;
@@ -19,6 +20,7 @@
 
   --text-color-fff: #ffffff;
   --text-color-def: #e6edf3;
+  --text-color-gray: hsla(0,0%,100%,0.46);
   --text-color-placeholder: #7d8590;
   --text-color-user-menu-active: #2d8cf0;
 }

@@ -10,17 +10,22 @@
     <div class="list">
       <List :articleList="articleList" />
     </div>
+    <div class="rightContent">
+      <RightContent />
+    </div>
   </div>
 </template>
 
 <script>
 import LeftCategory from "~/components/user/ArticleList/LeftCategory.vue";
 import List from "~/components/user/ArticleList/List.vue";
+import RightContent from "~/components/user/ArticleList/RightContent.vue";
 export default {
   name: "ArticleList",
   components: {
     LeftCategory,
-    List
+    List,
+    RightContent
   },
   props: {
     categoryList: {
@@ -61,6 +66,12 @@ export default {
       padding-left: 220px;
       padding-right: 220px;
       box-sizing: border-box;
+    }
+    .rightContent{
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 200px;
     }
   }
 </style>

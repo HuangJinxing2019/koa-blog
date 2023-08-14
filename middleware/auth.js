@@ -11,9 +11,10 @@ export default async function ({ redirect, req, store, route }){
   } else {
     token = store.state.token
   }
-  if(!token){
+  if(!token && !route.path.startsWith('/user')){
     redirect('/login')
-  } else {
+  } else if(!route.path.startsWith('/user')){
+
     try {
       const { data } = await request.jsonPost(checkToken,{ token })
       if(route.path !== '/login' && !data.data){

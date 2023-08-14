@@ -16,7 +16,6 @@ import UserCard from "~/components/user/UserCard.vue";
 import { queryUserInfo, queryCategoryListAll, queryUserBlogsListPage } from "~/config/api";
 import { getServerDomain } from "~/utils";
 import ArticleList from "~/components/user/ArticleList/index.vue";
-const mapData = new Map()
 export default {
   name: "userInfo",
   layout: 'user',
@@ -31,9 +30,11 @@ export default {
       categoryList: [],
       categoryId: null,
       articleList: [],
+      mapData: null,
     }
   },
   async asyncData({ $axios, params, req, query }){
+    const mapData = new Map();
     try {
       const { data: { data: userInfo } } = await $axios.post(getServerDomain(req) + queryUserInfo, { openid: params.id })
       const { data: { data: categoryList }}  = await $axios.post(getServerDomain(req) + queryCategoryListAll);
@@ -43,25 +44,49 @@ export default {
         categoryId: query.categoryId || '',
         creator: userInfo.creator,
       }
-      const { data: { data: { pages, list } } } = await $axios.post(getServerDomain(req) + queryUserBlogsListPage, queryData)
-      mapData.set(query.categoryId || 0, {
-        queryData,
-        list,
-        more: pages !== queryData.pageNum
+      mapData.set(0, {
+        queryData: { ...queryData, categoryId: '' },
+        list: [],
+        more: true
       })
-      console.log(list)
+      categoryList.forEach(item => {
+        mapData.set(item.id, {
+          queryData: { ...queryData, categoryId: item.id },
+          list: [],
+          more: false,
+        })
+      })
+      const { data: { data: { pages, list } } } = await $axios.post(getServerDomain(req) + queryUserBlogsListPage, queryData)
+      let map = mapData.get(Number(query.categoryId) || 0)
+      map.list = list
+      map.more = map.queryData.pageNum !== pages;
       return {
+        mapData,
         userInfo,
         categoryList,
         articleList: list,
         openid: params.id,
         categoryId: Number(query.categoryId) || null
       }
-    } catch (err){}
+    } catch (err){
+      console.log(err)
+    }
   },
   methods: {
     categoryChange(id){
       this.categoryId = id
+      this.getCategoryArticleList()
+    },
+    async getCategoryArticleList(){
+      let map = this.mapData.get(this.categoryId || 0);
+      if(map.list.length === 0){
+        const { data: { data: { pages, list } } } = await this.$axios.post(queryUserBlogsListPage, map.queryData)
+        this.articleList = list
+        map.list = list
+        map.more = map.queryData.pageNum !== pages
+      } else {
+        this.articleList = map.list
+      }
     },
   }
 }

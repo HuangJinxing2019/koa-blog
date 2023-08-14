@@ -1,7 +1,7 @@
 <template>
   <div>
     <Upload
-      :type="$slots.default.length === 0 ? 'drag' : 'select'"
+      :type="!($slots.default && $slots.default.length === 0) ? 'drag' : 'select'"
       :accept="accept"
       :max-size="maxSize"
       :on-success="handleSuccess"
@@ -11,7 +11,7 @@
       :action="fileUpload"
     >
       <slot></slot>
-      <div style="padding: 20px 0" v-if="$slots.default.length === 0">
+      <div style="padding: 20px 0" v-if="!($slots.default && $slots.default.length === 0)">
         <div v-if="!value">
           <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
           <p>Click or drag files here to upload</p>
