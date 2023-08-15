@@ -21,11 +21,6 @@ const SysBlogs = seq.define('sys_blogs', {
     comment: '封面图片',
     type: STRING,
   },
-  labelIds: {
-    comment: '标签',
-    type: STRING,
-    allowNull: true,
-  },
   content: {
     comment: '博客内容，Markdown文本',
     type: TEXT,

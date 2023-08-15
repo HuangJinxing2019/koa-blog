@@ -1,7 +1,9 @@
 const Sequelize = require('sequelize')
+const { Op, literal } = require('sequelize')
 const SysBlogsModel = require('../db/models/sys_blogs')
 const SysCategoryModel = require('../db/models/sys_category')
 const SysUserModel = require('../db/models/sys_user')
+const SysLabelModel = require('../db/models/sys_label')
 const sysCategoryService = require('./SysCategoryService')
 
 SysBlogsModel.belongsTo(SysCategoryModel, {
@@ -19,10 +21,26 @@ SysBlogsModel.belongsTo(SysUserModel, {
   foreignKey: 'creator',
   targetKey: 'account',
 })
+
 SysUserModel.hasOne(SysBlogsModel, {
   foreignKey: 'creator',
   sourceKey: 'account',
 })
+
+// SysBlogsModel.addHook('afterFind', async (instances) => {
+//   if (!Array.isArray(instances)) {
+//     instances = [instances];
+//   }
+//   for (const instance of instances) {
+//     const lIdArray = instance.labelIds.split(',').map(Number);
+//     instance.Bs = await SysLabelModel.findAll({
+//       where: {
+//         [Op.or]: lIdArray.map((id) => ({id})),
+//       },
+//       raw: true
+//     });
+//   }
+// })
 
 
 class SysBlogsService {

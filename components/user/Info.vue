@@ -42,6 +42,7 @@ export default {
       width: 130px;
       height: 130px;
       border-radius: 2px;
+      object-fit: cover;
     }
     .content{
       width: 100%;

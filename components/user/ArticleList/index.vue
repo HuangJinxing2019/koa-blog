@@ -11,7 +11,9 @@
       <List :articleList="articleList" />
     </div>
     <div class="rightContent">
-      <RightContent />
+      <RightContent
+        :category="category"
+      />
     </div>
   </div>
 </template>
@@ -42,6 +44,11 @@ export default {
     }
   },
   emits: ['categoryChange'],
+  computed: {
+    category(){
+      return this.categoryList.find(item => item.id === this.categoryId)
+    },
+  },
   methods:{
     categoryChange(id){
       this.$emit('categoryChange', id)
