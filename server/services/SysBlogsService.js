@@ -16,31 +16,49 @@ SysCategoryModel.hasOne(SysBlogsModel, {
   sourceKey: 'id',
 })
 
-SysBlogsModel.belongsTo(SysUserModel, {
-  as: 'userInfo',
-  foreignKey: 'creator',
-  targetKey: 'account',
-})
-
-SysUserModel.hasOne(SysBlogsModel, {
-  foreignKey: 'creator',
-  sourceKey: 'account',
-})
-
-// SysBlogsModel.addHook('afterFind', async (instances) => {
-//   if (!Array.isArray(instances)) {
-//     instances = [instances];
-//   }
-//   for (const instance of instances) {
-//     const lIdArray = instance.labelIds.split(',').map(Number);
-//     instance.Bs = await SysLabelModel.findAll({
-//       where: {
-//         [Op.or]: lIdArray.map((id) => ({id})),
-//       },
-//       raw: true
-//     });
-//   }
+// SysBlogsModel.belongsTo(SysUserModel, {
+//   as: 'userInfo',
+//   foreignKey: 'creator',
+//   targetKey: 'account',
 // })
+//
+// SysUserModel.hasOne(SysBlogsModel, {
+//   foreignKey: 'creator',
+//   sourceKey: 'account',
+// })
+
+// SysBlogsModel.belongsTo(SysBlogsLabelModel, {
+//   as: 'bl',
+//   foreignKey: 'id',
+//   targetKey: 'blogsId'
+// })
+//
+// SysBlogsLabelModel.hasMany(SysBlogsModel, {
+//   foreignKey: 'id',
+//   sourceKey: 'blogsId'
+// })
+
+
+
+SysBlogsModel.addHook('afterFind', async (instances) => {
+  if (!Array.isArray(instances)) {
+    instances = [instances];
+  }
+  for (const instance of instances) {
+    const lIdArray = instance.labelIds && instance.labelIds.split(',').map(Number) || [];
+    instance.labelList = instance.labelIds && await SysLabelModel.findAll({
+      where: {
+        [Op.or]: lIdArray.map((id) => ({id})),
+      },
+      raw: true
+    }) || [];
+    instance.userInfo = await SysUserModel.findOne({
+      where: {
+        account: instance.creator,
+      }
+    })
+  }
+})
 
 
 class SysBlogsService {
@@ -72,17 +90,19 @@ class SysBlogsService {
   }
 
   async userQueryList({ limit, offset, whereData }){
-    return SysBlogsModel.findAndCountAll({
+    const { count, rows } = await SysBlogsModel.findAndCountAll({
       attributes: [
         [Sequelize.col('c.name'), 'categoryName'],
         'id',
         'title',
         'open',
         'categoryId',
+        'labelIds',
         'status',
         'updatedAt',
         'mainImgUrl',
         'snippet',
+        'creator',
       ],
       where: whereData,
       include: [
@@ -91,15 +111,13 @@ class SysBlogsService {
           attributes: [],
           as: 'c',
         },
-        {
-          model: SysUserModel,
-          as: 'userInfo',
-          raw: true,
-        },
       ],
       limit,
       offset,
+      raw: true
     })
+    // console.log(rows)
+    return { count, rows }
   }
 
   async create(data) {

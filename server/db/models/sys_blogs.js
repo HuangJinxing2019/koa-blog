@@ -1,5 +1,5 @@
 const seq = require('../connections/mysql_connect'),
-  { STRING, INT_UNSIGNED, TEXT, BOOLEAN, INT } = require('../../config/db_type_config');
+  { STRING, INT_UNSIGNED, TEXT, BOOLEAN, INT, VIRTUAL } = require('../../config/db_type_config');
 
 const SysBlogs = seq.define('sys_blogs', {
   id: {
@@ -20,6 +20,11 @@ const SysBlogs = seq.define('sys_blogs', {
   mainImgUrl: {
     comment: '封面图片',
     type: STRING,
+  },
+  labelIds: {
+    comment: '标签',
+    type: STRING,
+    allowNull: true,
   },
   content: {
     comment: '博客内容，Markdown文本',
@@ -43,6 +48,11 @@ const SysBlogs = seq.define('sys_blogs', {
   creator: {
     comment: '创建者',
     type: STRING(11),
+  },
+  // 虚拟字段
+  labelList: {
+    comment: '虚拟字段，装在标签数组对象',
+    type: VIRTUAL,
   }
 })
 module.exports = SysBlogs

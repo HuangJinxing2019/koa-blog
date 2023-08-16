@@ -12,4 +12,6 @@ module.exports = {
   INT_UNSIGNED: Sequelize.INTEGER.UNSIGNED,
   DATEONLY: Sequelize.DATEONLY,
   BOOLEAN: Sequelize.BOOLEAN,
+  // 虚拟字段
+  VIRTUAL: Sequelize.VIRTUAL,
 }
