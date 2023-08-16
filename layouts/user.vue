@@ -15,7 +15,7 @@
     },
   }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
   .content{
     width: 100%;
     max-width: 1200px;
