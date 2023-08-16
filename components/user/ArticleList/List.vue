@@ -1,11 +1,11 @@
 <template>
   <ul class="ul-list">
     <li class="li-item" v-for="item of articleList" :key="item.id">
-      <a href="javascript:">
+      <a :href="`${item.userInfo.openid}/${item.id}`" target="_blank">
         <div class="content" :class="{'content-main': !!item.mainImgUrl}">
           <h1>{{ item.title }}</h1>
-          <article class="article">{{ item.snippet }} safajkfhjaskfhasd水电费has加快递费has快递费哈杀戮空间和阿萨德发了哈圣诞节快乐发哈克里斯多积分海拉克斯的积分换</article>
-<!--          <Author :user-info="item.userInfo" />-->
+          <article class="article">{{ item.snippet }}</article>
+          <Author :user-info="item.userInfo" :labelList="item.labelList" />
         </div>
         <img v-if="item.mainImgUrl" class="mainImg" :src="item.mainImgUrl" alt="">
       </a>

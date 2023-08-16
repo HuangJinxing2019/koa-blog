@@ -21,6 +21,12 @@
   export default {
     name: 'default',
     components: { HeaderAdmin, Sidebar },
+    head: {
+      link: [
+        // {rel: 'stylesheet', href: 'view-design/dist/styles/iview.css'},
+        // {rel: 'stylesheet', href: '~/assets/css/resets.css'},
+      ]
+    }
   }
 </script>
 <style lang="scss" scoped>

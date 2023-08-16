@@ -1,5 +1,4 @@
 const Sequelize = require('sequelize')
-const { Op, literal } = require('sequelize')
 const SysBlogsModel = require('../db/models/sys_blogs')
 const SysCategoryModel = require('../db/models/sys_category')
 const SysUserModel = require('../db/models/sys_user')
@@ -16,16 +15,16 @@ SysCategoryModel.hasOne(SysBlogsModel, {
   sourceKey: 'id',
 })
 
-// SysBlogsModel.belongsTo(SysUserModel, {
-//   as: 'userInfo',
-//   foreignKey: 'creator',
-//   targetKey: 'account',
-// })
-//
-// SysUserModel.hasOne(SysBlogsModel, {
-//   foreignKey: 'creator',
-//   sourceKey: 'account',
-// })
+SysBlogsModel.belongsTo(SysUserModel, {
+  as: 'userInfo',
+  foreignKey: 'creator',
+  targetKey: 'account',
+})
+
+SysUserModel.hasOne(SysBlogsModel, {
+  foreignKey: 'creator',
+  sourceKey: 'account',
+})
 
 // SysBlogsModel.belongsTo(SysBlogsLabelModel, {
 //   as: 'bl',
@@ -40,25 +39,12 @@ SysCategoryModel.hasOne(SysBlogsModel, {
 
 
 
-SysBlogsModel.addHook('afterFind', async (instances) => {
-  if (!Array.isArray(instances)) {
-    instances = [instances];
-  }
-  for (const instance of instances) {
-    const lIdArray = instance.labelIds && instance.labelIds.split(',').map(Number) || [];
-    instance.labelList = instance.labelIds && await SysLabelModel.findAll({
-      where: {
-        [Op.or]: lIdArray.map((id) => ({id})),
-      },
-      raw: true
-    }) || [];
-    instance.userInfo = await SysUserModel.findOne({
-      where: {
-        account: instance.creator,
-      }
-    })
-  }
-})
+// SysBlogsModel.addHook('afterFind', async (instances) => {
+//   if (!Array.isArray(instances)) {
+//     instances = [instances];
+//   }
+//
+// })
 
 
 class SysBlogsService {
@@ -95,10 +81,8 @@ class SysBlogsService {
         [Sequelize.col('c.name'), 'categoryName'],
         'id',
         'title',
-        'open',
         'categoryId',
         'labelIds',
-        'status',
         'updatedAt',
         'mainImgUrl',
         'snippet',
@@ -116,6 +100,20 @@ class SysBlogsService {
       offset,
       raw: true
     })
+    for (const instance of rows) {
+      const lIdArray = instance.labelIds && instance.labelIds.split(',').map(Number) || [];
+      instance.labelList = instance.labelIds && await SysLabelModel.findAll({
+        where: {
+          [Sequelize.Op.or]: lIdArray.map((id) => ({id})),
+        },
+        raw: true
+      }) || [];
+      instance.userInfo = await SysUserModel.findOne({
+        where: {
+          account: instance.creator,
+        }
+      })
+    }
     // console.log(rows)
     return { count, rows }
   }
@@ -138,7 +136,6 @@ class SysBlogsService {
       data.status !== undefined && data.status !== status){
       await sysCategoryService.setCount({ id: categoryId, open, status, type: 'update' })
     }
-
     return res
   }
 
@@ -154,6 +151,24 @@ class SysBlogsService {
 
   async queryById(id) {
     return SysBlogsModel.findOne({ where: { id }, raw: true })
+  }
+
+  async queryUserById(id){
+    const blogs = await SysBlogsModel.findOne({
+      where: { id },
+      raw: true,
+    })
+    blogs.userInfo = await SysUserModel.findOne({
+      where: { account: blogs.creator },
+      raw: true
+    })
+    blogs.labelList = blogs.labelIds && await SysLabelModel.findAll({
+      where: {
+        [Sequelize.Op.or]: blogs.labelIds.split(',').map(id => ({id}))
+      },
+      raw: true
+    }) || []
+    return blogs
   }
 
   async updateContent({ id, content }) {

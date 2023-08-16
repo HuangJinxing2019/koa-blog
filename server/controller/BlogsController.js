@@ -93,7 +93,6 @@ class BlogsController{
       ctx.body = returnInfo(UNKNOWN_ERROR)
     }
   }
-
   // 更新状态
   async updateOpen(ctx){
     const { id, open } = ctx.request.body
@@ -105,6 +104,18 @@ class BlogsController{
       console.log('更新状态错误', err)
       ctx.body = returnInfo(UNKNOWN_ERROR)
     }
+  }
+  async queryUserById(ctx){
+    const { id } = ctx.request.body;
+    if(!id) return ctx.body = returnInfo({ ...PARAMS_ERROR, msg: 'id不能为空' });
+    try {
+      const data = await sysBlogsService.queryUserById(id)
+      ctx.body = returnInfo(SUCCESS, data)
+    } catch (err){
+      console.log('查询博客详情失败', err)
+      ctx.body = returnInfo(UNKNOWN_ERROR)
+    }
+
   }
 }
 

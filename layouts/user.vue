@@ -9,17 +9,18 @@
 <script>
   import HeaderUser from "~/components/HeaderUser/index.vue";
   export default {
+    name: 'user',
     components: {
       HeaderUser,
-    }
+    },
   }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
   .content{
     width: 100%;
-    height: calc(100vh - 58px);
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px 0;
+    color: var(--text-color-def);
   }
 </style>

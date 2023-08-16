@@ -18,7 +18,7 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     'view-design/dist/styles/iview.css',
-    '@/assets/css/resets.css',
+    "@/assets/css/resets.css",
     '@/assets/css/view_resets.css',
     '@/assets/css/theme_color.css',
     '@/assets/css/common.css',

@@ -11,5 +11,6 @@ router.post('/queryById', verifyCheckin, blogsController.queryById)
 router.post('/updateContent', verifyCheckin, blogsController.updateContent)
 router.post('/publishBlogs', verifyCheckin, blogsController.publishBlogs)
 router.post('/updateOpen', verifyCheckin, blogsController.updateOpen)
+router.post('/queryUserById', blogsController.queryUserById)
 
 module.exports = router

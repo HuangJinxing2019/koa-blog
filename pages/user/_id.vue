@@ -92,6 +92,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="scss">
+  @import 'view-design/dist/styles/iview.css';
+  @import "@/assets/css/resets.css";
 </style>

@@ -2,8 +2,7 @@
   <div class="author">
     <div class="name">{{ userInfo.nickname }}</div>
     <div class="tags">
-      <span class="tag">标签1</span>
-      <span class="tag">标签2</span>
+      <span class="tag" v-for="item of labelList" :key="item.id">{{ item.name }}</span>
     </div>
   </div>
 </template>
@@ -15,6 +14,10 @@ export default {
     userInfo: {
       type: Object,
       default: null,
+    },
+    labelList: {
+      type: Array,
+      default: [],
     }
   },
 }
