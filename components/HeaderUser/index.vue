@@ -18,8 +18,11 @@ export default {
 
 <style lang="scss" scoped>
   .headerUser{
+    position: sticky;
+    top: 0;
     width: 100%;
     height: 58px;
+    z-index: 999;
     background-color: var(--bg-color-content);
     .content {
       width: 100%;

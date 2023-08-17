@@ -4,7 +4,11 @@
       <h1 class="title">{{ detail.title }}</h1>
       <div ref="blogsRef" class="markdown-preview"></div>
     </div>
-    <div class="rightContent"></div>
+    <div class="rightContent">
+      <div ref="toc" class="toc">
+        <div class="toc-title">目录</div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -63,7 +67,7 @@ export default {
       this.md.use(markdownItTaskLists); // 使用markdown-it-task-lists插件
       this.md.use(markdownItAnchor); // 使用markdown-it-anchor插件
       this.md.use(markdownItToc, {
-        includeLevel: [1, 2] // 指定目录生成的标题级别
+        includeLevel: [1, 2, 3] // 指定目录生成的标题级别
       });
     },
     renderMarkdown(){
@@ -93,6 +97,10 @@ export default {
   mounted() {
     this.initMarkdown()
     this.renderMarkdown()
+    this.$nextTick(() => {
+      const toc = document.querySelector('.table-of-contents')
+      toc && this.$refs.toc.appendChild(toc)
+    })
   },
 }
 </script>
@@ -100,14 +108,17 @@ export default {
 <style lang="scss">
 @import "highlight.js/scss/github-dark-dimmed";
 .wrapper {
-  width: 100%;
-  max-width: 1200px;
-  background-color: var(--bg-color-content);
-  padding: 20px;
-  box-sizing: border-box;
-  border-radius: 4px;
+  position: relative;
+  width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.35rem;
   .content{
-    width: 800px;
+    width: 900px;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    background-color: var(--bg-color-content);
     h1,h2,h3,h4,h5,h6,b,strong{font-weight:bold}
     h1{
       margin: 0.68rem 0;
@@ -140,9 +151,50 @@ export default {
     p {
       padding: 5px 0;
     }
-    ul,ol,menu{
+    ul{
       list-style: disc;
       padding: 5px 0 5px 15px;
+    }
+    ol {
+      list-style: str-index;
+      padding: 5px 0 5px 15px;
+      li{
+        padding: 5px 0 5px 0;
+      }
+    }
+  }
+  .rightContent{
+    width: 290px;
+    right: 0;
+    top: 0;
+    .toc{
+      position: sticky;
+      top: 78px;
+      width: 100%;
+      border-radius: 4px;
+      background-color: var(--bg-color-content);
+      padding: 0 20px 20px 20px;
+      box-sizing: border-box;
+      .toc-title{
+        line-height: 50px;
+        font-size: 18px;
+        border-bottom: 1px solid var(--border-color-def);
+      }
+      .table-of-contents {
+        margin-top: 20px;
+        ul{
+          font-size: 16px;
+          padding: 0 10px;
+          a {
+            width: 100%;
+            display: block;
+            padding: 6px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+      }
     }
   }
 }
@@ -267,6 +319,7 @@ pre.hljs {
 
   }
 }
+
 
 
 </style>

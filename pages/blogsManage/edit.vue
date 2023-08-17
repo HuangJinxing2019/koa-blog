@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="blogs-edit-wrapper">
     <div class="btns">
       <Button @click="$router.back()">返回</Button>
       <Poptip placement="bottom-end" :width="500">
@@ -63,7 +63,7 @@ export default {
       })
     },
     uploadSuccess(editor, msg){
-      const value = vditor.getValue() + `<img src="${JSON.parse(msg).data}" width="100%" />`
+      const value = vditor.getValue() + `\n ![](${JSON.parse(msg).data})`
       vditor.setValue(value)
     },
     async blurChange(value){
@@ -81,10 +81,13 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.wrapper {
+<style lang="scss">
+.blogs-edit-wrapper {
   width: 100%;
   height: 100%;
+  ol{
+    list-style: str-index;
+  }
   .btns {
     width: 100%;
     text-align: right;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="user-wrapper">
     <HeaderUser />
     <div class="content">
       <nuxt />
@@ -16,11 +16,16 @@
   }
 </script>
 <style lang="scss" scoped>
+.user-wrapper{
+  position: relative;
+  width: 100%;
+  overflow: initial;
   .content{
-    width: 100%;
-    max-width: 1200px;
+    width: 1200px;
     margin: 0 auto;
     padding: 20px 0;
     color: var(--text-color-def);
   }
+}
+
 </style>
