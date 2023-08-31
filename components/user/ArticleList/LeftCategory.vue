@@ -37,7 +37,7 @@ export default {
   methods: {
     handleClick(id){
       this.$emit('categoryChange', id)
-      this.$router.push({
+      this.$router.replace({
         path: this.$route.path,
         query: {
           categoryId: id

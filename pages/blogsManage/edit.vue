@@ -1,13 +1,15 @@
 <template>
-  <div class="blogs-edit-wrapper">
+  <div class="blogs-edit-wrapper" ref="contentRef">
     <div class="btns">
-      <Button @click="$router.back()">返回</Button>
+      <Button style="margin-right: 10px" @click="$router.back()">返回</Button>
       <Poptip placement="bottom-end" :width="500">
-        <Button type="primary">发布文章</Button>
+        <Button style="margin-right: 10px" type="primary">发布文章</Button>
         <template #content>
           <PublishInfo :id="id" />
         </template>
       </Poptip>
+      <Icon v-if="!isFullScreen" @click="fullScreenChange(true)" type="md-qr-scanner" size="30" />
+      <Icon v-else @click="fullScreenChange(false)" type="md-contract" size="30" />
     </div>
     <div id="vditor" class="vditor-content"></div>
   </div>
@@ -26,6 +28,7 @@ export default {
   components: { PublishInfo },
   data() {
     return {
+      isFullScreen: false,
       id: null
     }
   },
@@ -60,6 +63,7 @@ export default {
           success: this.uploadSuccess,
         },
         blur: this.blurChange,
+        tab: '  ',
       })
     },
     uploadSuccess(editor, msg){
@@ -73,10 +77,21 @@ export default {
       const { data } = await this.$axios.post(blogsQueryById, { id })
       this.initVditor(data.data.content)
     },
+    fullScreenChange(flag){
+      if(flag){
+        this.$refs.contentRef.requestFullscreen()
+      }else {
+        document.exitFullscreen()
+      }
+    },
+    setIsFullScreen(){
+      this.isFullScreen = !!document.fullscreenElement;
+    }
   },
   mounted() {
     this.id = this.$route.query.id
     this.getDetail(this.id)
+    this.$refs.contentRef.addEventListener('fullscreenchange', this.setIsFullScreen, false)
   },
 }
 </script>
@@ -89,6 +104,9 @@ export default {
     list-style: str-index;
   }
   .btns {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     width: 100%;
     text-align: right;
     margin-bottom: 10px;
@@ -107,6 +125,16 @@ export default {
     }
     p {
       margin-bottom: 6px;
+    }
+  }
+  .vditor-reset blockquote{
+    border-left-color: #ffc517;
+    border-radius: 2px;
+    background: rgba(255, 197, 23, 0.06);
+    padding: 6px 10px 3px 10px;
+    &::before,
+    &::after{
+      content: none;
     }
   }
 }

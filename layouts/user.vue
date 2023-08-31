@@ -1,8 +1,10 @@
 <template>
   <div class="user-wrapper">
     <HeaderUser />
-    <div class="content">
-      <nuxt />
+    <div class="scroll-content">
+      <div class="content">
+        <nuxt />
+      </div>
     </div>
   </div>
 </template>
@@ -19,13 +21,20 @@
 .user-wrapper{
   position: relative;
   width: 100%;
-  overflow: initial;
-  .content{
-    width: 1200px;
-    margin: 0 auto;
-    padding: 20px 0;
-    color: var(--text-color-def);
+  height: 100%;
+  .scroll-content {
+    width: 100%;
+    height: calc(100% - 58px);
+    overflow-y: scroll;
+    position: relative;
+    .content{
+      width: 1200px;
+      margin: 0 auto;
+      padding: 20px 0;
+      color: var(--text-color-def);
+    }
   }
+
 }
 
 </style>

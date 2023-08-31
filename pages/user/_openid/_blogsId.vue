@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper detail-page">
     <div class="content">
       <h1 class="title">{{ detail.title }}</h1>
       <div ref="blogsRef" class="markdown-preview"></div>
@@ -15,6 +15,7 @@
 <script>
 import { getServerDomain } from '~/utils'
 import { queryUserBlogsById } from '~/config/api'
+import { copyText } from "~/utils";
 
 import MarkdownIt from 'markdown-it'
 import markdownItEmoji from 'markdown-it-emoji';
@@ -91,7 +92,18 @@ export default {
       }
       linesNum += '</span>'
       return [linesLength, linesNum]
-    }
+    },
+    addBtnClickChange(){
+      const oBtns = document.querySelectorAll('.copy-btn')
+      for (let obtn of oBtns){
+        obtn.addEventListener('click', this.copyChange, false)
+      }
+    },
+    copyChange(e){
+      const clipboardId = e.target.dataset.clipboardTarget
+      const value = document.querySelector(clipboardId).value
+      copyText(value);
+    },
   },
 
   mounted() {
@@ -101,222 +113,27 @@ export default {
       const toc = document.querySelector('.table-of-contents')
       toc && this.$refs.toc.appendChild(toc)
     })
+    this.$nextTick(this.addBtnClickChange)
   },
 }
 </script>
 
 <style lang="scss">
 @import "highlight.js/scss/github-dark-dimmed";
+@import "style";
 .wrapper {
   position: relative;
   width: 1200px;
   display: flex;
   justify-content: space-between;
-  font-size: 0.35rem;
+  font-size: 0.3rem;
+  color: var(--text-color-detail);
   .content{
     width: 900px;
     padding: 20px;
     box-sizing: border-box;
     border-radius: 4px;
     background-color: var(--bg-color-content);
-    h1,h2,h3,h4,h5,h6,b,strong{font-weight:bold}
-    h1{
-      margin: 0.68rem 0;
-      font-size: .8rem;
-    }
-    h2{
-      margin: 0.56rem 0;
-      font-size: .6rem;
-    }
-    h3{
-      margin: 0.44rem 0;
-      font-size: .5rem;
-    }
-    h4{
-      margin: 0.32rem 0;
-      font-size: .4rem;
-    }
-    h5{
-      margin: 0.27rem 0;
-      font-size: .32rem;
-    }
-    h6{
-      margin: 0.2rem 0;
-      font-size: .25rem;
-    }
-    .title {
-      font-size: 20px;
-      font-weight: bold;
-    }
-    p {
-      padding: 5px 0;
-    }
-    ul{
-      list-style: disc;
-      padding: 5px 0 5px 15px;
-    }
-    ol {
-      list-style: str-index;
-      padding: 5px 0 5px 15px;
-      li{
-        padding: 5px 0 5px 0;
-      }
-    }
-  }
-  .rightContent{
-    width: 290px;
-    right: 0;
-    top: 0;
-    .toc{
-      position: sticky;
-      top: 78px;
-      width: 100%;
-      border-radius: 4px;
-      background-color: var(--bg-color-content);
-      padding: 0 20px 20px 20px;
-      box-sizing: border-box;
-      .toc-title{
-        line-height: 50px;
-        font-size: 18px;
-        border-bottom: 1px solid var(--border-color-def);
-      }
-      .table-of-contents {
-        margin-top: 20px;
-        ul{
-          font-size: 16px;
-          padding: 0 10px;
-          a {
-            width: 100%;
-            display: block;
-            padding: 6px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-          }
-        }
-      }
-    }
-  }
-}
-
-pre.hljs {
-  position: relative;
-  padding: 30px 2px 0 40px;
-  border-radius: 5px;
-  font-size: 14px;
-  line-height: 22px;
-  overflow: hidden;
-  .code-content {
-    display: block !important;
-    height: 0;
-    margin: 0 10px !important;
-    overflow-x: hidden;
-    box-sizing: border-box;
-    &::-webkit-scrollbar {
-      z-index: 11;
-      width: 6px;
-    }
-    &::-webkit-scrollbar:horizontal {
-      height: 6px;
-    }
-    &::-webkit-scrollbar-thumb {
-      border-radius: 5px;
-      width: 6px;
-      background: #666;
-    }
-    &::-webkit-scrollbar-corner,&::-webkit-scrollbar-track {
-      background: #1E1E1E;
-    }
-    &::-webkit-scrollbar-track-piece {
-      background: #1E1E1E;
-      width: 6px
-    }
-  }
-  .line-numbers-rows {
-    position: absolute;
-    pointer-events: none;
-    top: 40px;
-    bottom: 12px;
-    left: 0;
-    font-size: 100%;
-    width: 40px;
-    text-align: center;
-    letter-spacing: -1px;
-    border-right: 1px solid rgba(0, 0, 0, .66);
-    user-select: none;
-    counter-reset: linenumber;
-    span {
-      pointer-events: none;
-      display: block;
-      counter-increment: linenumber;
-      &:before {
-        content: counter(linenumber);
-        color: #999;
-        display: block;
-        text-align: center;
-      }
-    }
-  }
-  b.name {
-    position: absolute;
-    top: 7px;
-    right: 50px;
-    z-index: 10;
-    color: #999;
-    pointer-events: none;
-  }
-  .exp{
-    display: none;
-  }
-  .exp:checked+.code-content{
-    height: auto;
-    max-height: 500px;
-    overflow: auto;
-    padding: 10px 0;
-  }
-  .code-top-bar{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: absolute;
-    width: 100%;
-    height: 30px;
-    top: 2px;
-    left: 0;
-    padding: 0 10px 0 15px;
-    box-sizing: border-box;
-    z-index: 10;
-    border-bottom: 1px solid var(--border-color-def);
-    box-shadow: 1px 1px 2px #47505b;
-    .input-label{
-      width: 30px;
-      .icon {
-        display: block;
-        width: 0;
-        height: 0;
-        border-top: 7px solid transparent;
-        border-bottom: 7px solid transparent;
-        border-left: 7px solid var(--border-color-icon);
-      }
-    }
-
-    .copy-btn {
-      color: var(--text-color-gray);
-      cursor: pointer;
-      border: 0;
-      border-radius: 2px;
-    }
-  }
-  .exp:checked+.code-content{
-    .code-top-bar{
-      .icon{
-        border-bottom: 0;
-        border-top: 7px solid var(--border-color-icon);
-        border-right: 7px solid transparent;
-        border-left: 7px solid transparent;
-      }
-    }
-
   }
 }
 
