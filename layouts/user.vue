@@ -25,16 +25,21 @@
   .scroll-content {
     width: 100%;
     height: calc(100% - 58px);
-    overflow-y: scroll;
+    overflow-y: auto;
     position: relative;
     .content{
-      width: 1200px;
+      width: 100%;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 20px 0;
       color: var(--text-color-def);
     }
   }
-
+  @media screen and (max-width: 1232px) {
+    .scroll-content {
+      padding: 0 16px;
+    }
+  }
 }
 
 </style>

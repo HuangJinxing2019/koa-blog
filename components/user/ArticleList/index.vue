@@ -80,5 +80,13 @@ export default {
       top: 0;
       width: 200px;
     }
+    @media screen and (max-width: 960px) {
+      .rightContent {
+        display: none;
+      }
+      .list{
+        padding-right: 0;
+      }
+    }
   }
 </style>

@@ -5830,6 +5830,11 @@ loader-utils@^2.0.0:
     emojis-list "^3.0.0"
     json5 "^2.1.2"
 
+loadsh@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/loadsh/-/loadsh-0.0.4.tgz#5314babd12bb13315dde024a4ca70758c5489d2d"
+  integrity sha512-U+wLL8InpfRalWrr+0SuhWgGt10M4OyAk6G8xCYo2rwpiHtxZkWiFpjei0vO463ghW8LPCdhqQxXlMy2qicAEw==
+
 locate-path@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-3.0.0.tgz#dbec3b3ab759758071b58fe59fc41871af21400e"
@@ -9463,10 +9468,10 @@ vary@^1.1.2, vary@~1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==
 
-vditor@3.9.3:
-  version "3.9.3"
-  resolved "https://registry.yarnpkg.com/vditor/-/vditor-3.9.3.tgz#afb7a9429570d81abb5729fb186484c7e6d4da8c"
-  integrity sha512-w3ZSa8SQaZNFEO7XeHsJEW6NoXH4FgqU1BHVYfQ2tGk1y9rQMVWYJOXegO25QhgnAIF4qtm/AoylUg4b5mW7cg==
+vditor@^3.9.4:
+  version "3.9.5"
+  resolved "https://registry.yarnpkg.com/vditor/-/vditor-3.9.5.tgz#2be02f8242194f24f7c639ad09a51debed9b170f"
+  integrity sha512-yRFyEOoJ0GQGAjfzDBV9ZKemCleqspSf3Jg3XtKVj8RwnjnF6oScLQCAwSgRzCamYl+F+rIX9at0c3tEsatY/A==
   dependencies:
     diff-match-patch "^1.0.5"
 

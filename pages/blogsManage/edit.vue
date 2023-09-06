@@ -35,7 +35,7 @@ export default {
   methods: {
     initVditor(value) {
       vditor = new Vditor('vditor', {
-        width: '100%',
+        width: 'auto',
         value,
         theme: 'dark',
         placeholder: '开始编辑...',
@@ -136,6 +136,9 @@ export default {
     &::after{
       content: none;
     }
+  }
+  .vditor-reset code:not(.hljs):not(.highlight-chroma){
+    background-color: rgba(83, 86, 91, 0.36);
   }
 }
 </style>

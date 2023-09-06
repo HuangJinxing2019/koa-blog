@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper detail-page">
     <div class="content">
-      <h1 class="title">{{ detail.title }}</h1>
+      <div class="title">{{ detail.title }}</div>
       <div ref="blogsRef" class="markdown-preview"></div>
     </div>
     <div class="rightContent">
@@ -13,16 +13,17 @@
 </template>
 
 <script>
-import { getServerDomain } from '~/utils'
-import { queryUserBlogsById } from '~/config/api'
-import { copyText } from "~/utils";
+  import { getServerDomain } from '~/utils'
+  import { queryUserBlogsById } from '~/config/api'
+  import { copyText } from "~/utils";
+  import MarkdownIt from 'markdown-it'
+  import markdownItEmoji from 'markdown-it-emoji';
+  import markdownItTaskLists from 'markdown-it-task-lists';
+  import markdownItAnchor from 'markdown-it-anchor';
+  import markdownItToc from 'markdown-it-table-of-contents';
+  import { throttle } from 'loadsh'
 
-import MarkdownIt from 'markdown-it'
-import markdownItEmoji from 'markdown-it-emoji';
-import markdownItTaskLists from 'markdown-it-task-lists';
-import markdownItAnchor from 'markdown-it-anchor';
-import markdownItToc from 'markdown-it-table-of-contents';
-import hljs from 'highlight.js';
+  import hljs from 'highlight.js';
 
 export default {
   name: 'BlogsDetail',
@@ -30,7 +31,7 @@ export default {
   data() {
     return {
       detail: {},
-      html: ''
+      html: '',
     }
   },
   async asyncData({ $axios, params, req }) {
@@ -104,6 +105,45 @@ export default {
       const value = document.querySelector(clipboardId).value
       copyText(value);
     },
+    addHSpanEL(){
+      const h1 = document.getElementsByTagName('h1') || []
+      const h2 = document.getElementsByTagName('h2') || []
+      const h3 = document.getElementsByTagName('h3') || []
+      const h4 = document.getElementsByTagName('h4') || []
+      const h5 = document.getElementsByTagName('h5') || []
+      const h6 = document.getElementsByTagName('h6') || []
+      const hList = [...h1, ...h2, ...h3, ...h4, ...h5, ...h6]
+      this.hList = [...h1, ...h2, ...h3]
+      hList.forEach(item => {
+        const frag = document.createDocumentFragment()
+        for(let i = 1; i <= 4; i++){
+          let span = document.createElement('span')
+          span.className = 'b' + i
+          frag.appendChild(span)
+        }
+        item.appendChild(frag)
+      })
+    },
+    getAnchor(){
+      const anchor = document.querySelectorAll('.toc a[href^="#"]')
+      anchor[0] && (anchor[0].className = 'active')
+      this.anchorMap = [...anchor].reduce((pre, item) => {
+        pre[item.getAttribute('href').slice(1)] = item
+        return pre
+      }, {})
+      console.log(this.anchorMap)
+    },
+    scrollChange: throttle(function (e){
+      this.hList.forEach(item => {
+        const { top } = item.getBoundingClientRect()
+        if(top < 200){
+          for (let key in this.anchorMap){
+            this.anchorMap[key].className = '';
+          }
+          this.anchorMap[item.id].className = 'active'
+        }
+      })
+    }, 300)
   },
 
   mounted() {
@@ -113,7 +153,13 @@ export default {
       const toc = document.querySelector('.table-of-contents')
       toc && this.$refs.toc.appendChild(toc)
     })
-    this.$nextTick(this.addBtnClickChange)
+    this.$nextTick(() => {
+      this.addBtnClickChange()
+      this.addHSpanEL()
+      this.getAnchor()
+    })
+    const scrollContent = document.querySelector('.scroll-content')
+    scrollContent.addEventListener('scroll', this.scrollChange, false)
   },
 }
 </script>
@@ -123,17 +169,31 @@ export default {
 @import "style";
 .wrapper {
   position: relative;
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   display: flex;
   justify-content: space-between;
   font-size: 0.3rem;
   color: var(--text-color-detail);
   .content{
-    width: 900px;
+    flex: 1;
+    margin-right: 10px;
     padding: 20px;
     box-sizing: border-box;
     border-radius: 4px;
     background-color: var(--bg-color-content);
+    .title{
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+  }
+  @media screen and (max-width: 860px) {
+    .rightContent{
+      display: none;
+    }
+    .content{
+      margin-right: 0;
+    }
   }
 }
 
