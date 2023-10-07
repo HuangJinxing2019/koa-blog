@@ -1,4 +1,4 @@
-module.export = {
+module.exports = {
   app: [
     {
       name: 'nuxt_koa2_blogs',// 项目名称
@@ -13,7 +13,7 @@ module.export = {
   ],
   deploy: {
     production: {
-      user: 'rout',
+      user: 'root',
       host: '119.91.102.168',
       ref: 'origin/main', // git仓库分支
       repo: 'https://github.com/HuangJinxing2019/koa-blog.git', // 仓库地址
