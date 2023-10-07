@@ -14,7 +14,7 @@ module.exports = {
   deploy: {
     production: {
       user: 'root',
-      host: '119.91.102.168',
+      host: '192.168.80.128',
       ref: 'origin/main', // git仓库分支
       repo: 'https://github.com/HuangJinxing2019/koa-blog.git', // 仓库地址
       path: '/www/blog', // 部署到服务器的目录地址
